@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GithubIcon, GoogleIcon, LinkedinIcon, Logo } from "@/components/icons";
+import { GithubIcon, LinkedinIcon, Logo } from "@/components/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -50,10 +50,10 @@ export default function LoginPage() {
         <>
             <div className="grid grid-cols-2 gap-2">
                 <Button variant="outline" asChild>
-                    <a href="https://github.com/login" target="_blank" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
+                    <a href="https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
                 </Button>
                 <Button variant="outline" asChild>
-                    <a href="https://www.linkedin.com/login" target="_blank" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
+                    <a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=profile%20email" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
                 </Button>
             </div>
             <div className="relative">
@@ -100,7 +100,7 @@ export default function LoginPage() {
             Select your role and enter your details to login.
           </CardDescription>
         </CardHeader>
-        <Tabs defaultValue="student" className="w-full" onValueChange={(value) => setRole(value)}>
+        <Tabs defaultValue="student" className="w-full" onValueChange={(value) => setRole(value as 'student' | 'faculty')}>
           <CardContent className="grid gap-4">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="student">Student</TabsTrigger>

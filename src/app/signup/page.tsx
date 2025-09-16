@@ -31,13 +31,13 @@ export default function SignupPage() {
         <CardContent className="grid gap-4">
            <div className="grid grid-cols-3 gap-2">
             <Button variant="outline" asChild>
-                <a href="https://accounts.google.com/signup" target="_blank" rel="noopener noreferrer"><GoogleIcon className="h-4 w-4" /></a>
+                <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=profile%20email" rel="noopener noreferrer"><GoogleIcon className="h-4 w-4" /></a>
             </Button>
             <Button variant="outline" asChild>
-                <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
+                <a href="https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
             </Button>
             <Button variant="outline" asChild>
-                <a href="https://www.linkedin.com/signup" target="_blank" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
+                <a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=profile%20email" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
             </Button>
           </div>
           <div className="relative">
