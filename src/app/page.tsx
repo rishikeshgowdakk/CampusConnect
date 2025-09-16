@@ -110,19 +110,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <section id="hero-image" className="container my-12 fade-in-up stagger-3 [perspective:1000px]">
-            <div className="overflow-hidden rounded-xl bg-primary/10 shadow-2xl shadow-primary/10 border border-primary/20 group transition-all duration-500 ease-in-out hover:[transform:rotateX(10deg)_rotateY(-10deg)_scale(1.05)]">
-                <Image
-                    src="https://picsum.photos/seed/students-group/1200/600"
-                    alt="A group of diverse college students smiling and walking on a university campus."
-                    width={1200}
-                    height={600}
-                    className="w-full transition-transform duration-500 ease-in-out group-hover:scale-110"
-                    data-ai-hint="college students standing"
-                />
-            </div>
-        </section>
         
         <section id="quick-prep" className="bg-secondary/50 py-20 my-12 fade-in-up">
             <div className="container text-center">
@@ -150,16 +137,18 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, i) => (
-              <Card key={feature.title} className={`flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:shadow-lg fade-in-up stagger-${(i % 3) + 1} [perspective:800px] hover:[transform:rotateY(15deg)_scale(1.05)]`}>
-                <CardHeader className="p-0 mb-4">
-                  <div className="bg-primary/10 text-primary p-4 rounded-full transition-transform duration-300 group-hover:scale-110">
-                    {feature.icon}
-                  </div>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <CardTitle className="mb-2 font-headline">{feature.title}</CardTitle>
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
-                </CardContent>
+              <Card key={feature.title} className={`group flex flex-col items-center text-center p-6 transition-all duration-500 fade-in-up stagger-${(i % 3) + 1} [perspective:1000px]`}>
+                 <div className="transition-all duration-500 group-hover:[transform:rotateY(15deg)_scale(1.05)]">
+                    <CardHeader className="p-0 mb-4">
+                      <div className="bg-primary/10 text-primary p-4 rounded-full transition-transform duration-300 group-hover:scale-110">
+                        {feature.icon}
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                      <CardTitle className="mb-2 font-headline">{feature.title}</CardTitle>
+                      <p className="text-muted-foreground text-sm">{feature.description}</p>
+                    </CardContent>
+                 </div>
               </Card>
             ))}
           </div>
@@ -175,7 +164,7 @@ export default function Home() {
                 </div>
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {testimonials.map((testimonial, i) => (
-                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center transform transition-all duration-500 hover:scale-105 hover:shadow-xl fade-in-up stagger-${i+1}`}>
+                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center transform transition-all duration-500 hover:scale-105 hover:shadow-xl fade-in-up stagger-${i+1} [perspective:800px] hover:[transform:rotateY(15deg)]`}>
                             <CardHeader className="p-0 items-center">
                                 <Avatar className="w-20 h-20 mb-4 border-2 border-primary">
                                     <AvatarImage src={testimonial.avatar} data-ai-hint={testimonial.avatarHint}/>
