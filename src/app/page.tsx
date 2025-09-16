@@ -110,10 +110,14 @@ export default function Home() {
 
     return () => {
       elements.forEach(el => {
-        const observer = observers.find(o => o.root === null);
-        if (observer) {
-          observer.unobserve(el);
-        }
+        // Find the observer for this element and disconnect it.
+        const elObserver = observers.find(o => {
+          // A bit of a hack: The IntersectionObserver doesn't expose the elements it's observing.
+          // We can't directly check if this is the right observer.
+          // So we unobserve from all of them. This is safe.
+          o.unobserve(el);
+          return false; // just to satisfy find
+        });
       });
     };
   }, []);
@@ -149,10 +153,10 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex-1 [perspective:2000px]">
+      <main className="flex-1">
          <section className="py-20 md:py-32">
           <div className="container text-center">
-            <div className="max-w-4xl mx-auto scroll-animate in-view">
+            <div className="max-w-4xl mx-auto animate-in">
               <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline">
                 The All-In-One Platform for Your Campus Life
               </h1>
@@ -176,8 +180,8 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="quick-prep" className="bg-secondary/50 py-20 my-12 scroll-animate">
-            <div className="container text-center">
+        <section id="quick-prep" className="bg-secondary/50 py-20 my-12">
+            <div className="container text-center scroll-animate">
                 <div className="mx-auto max-w-3xl">
                     <div className="inline-block bg-primary text-primary-foreground rounded-full p-3 mb-4 animate-pulse">
                         <Zap className="h-8 w-8" />
@@ -226,8 +230,8 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="testimonials" className="my-20 py-24 bg-secondary/50 scroll-animate">
-            <div className="container">
+        <section id="testimonials" className="my-20 py-24 bg-secondary/50">
+            <div className="container scroll-animate">
                 <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12">
                     <h2 className="text-3xl font-bold tracking-tight font-headline">From Our Students</h2>
                     <p className="text-muted-foreground max-w-2xl">
