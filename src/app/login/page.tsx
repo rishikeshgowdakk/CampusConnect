@@ -42,6 +42,7 @@ export default function LoginPage() {
     const email = emailInput.value;
     const password = passwordInput.value;
 
+    // Simulate network delay
     setTimeout(() => {
         const user = findUserByEmail(email);
 
@@ -58,8 +59,8 @@ export default function LoginPage() {
                 description: "Invalid email or password. Please try again.",
                 variant: "destructive",
             });
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }, 500);
   };
 
@@ -108,6 +109,14 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 animate-in">
+        {isLoading && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm animate-in fade-in-0">
+            <div className="flex flex-col items-center gap-4">
+                <Logo className="h-16 w-16 text-primary animate-pulse-grow" />
+                <p className="text-muted-foreground">Logging you in...</p>
+            </div>
+            </div>
+        )}
       <Card className="w-full max-w-md mx-auto shadow-xl">
         <CardHeader className="space-y-1 text-center">
           <Link href="/" className="flex items-center justify-center space-x-2 mb-4">
@@ -134,7 +143,7 @@ export default function LoginPage() {
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
             <Button className="w-full shine-button" onClick={handleLogin} disabled={isLoading}>
-              {isLoading ? 'Logging in...' : `Login as ${role.charAt(0).toUpperCase() + role.slice(1)}`}
+              {`Login as ${role.charAt(0).toUpperCase() + role.slice(1)}`}
             </Button>
             {role === 'student' && (
               <div className="text-center text-sm">
