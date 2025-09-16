@@ -12,19 +12,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Logo } from "@/components/icons";
+import { GithubIcon, GoogleIcon, LinkedinIcon, Logo } from "@/components/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-
-const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg role="img" viewBox="0 0 24 24" {...props}>
-      <path
-        fill="currentColor"
-        d="M12.48 10.92v3.28h7.84c-.24 1.84-.85 3.18-1.73 4.1-1.02 1.02-2.62 1.98-4.63 1.98-3.52 0-6.43-2.91-6.43-6.49s2.91-6.49 6.43-6.49c2.03 0 3.36.85 4.17 1.62l2.52-2.52C17.66 1.89 15.47 1 12.48 1 7.01 1 3 5.02 3 9.5s4.01 8.5 9.48 8.5c2.93 0 5.15-1 6.85-2.62 1.94-1.87 2.58-4.49 2.58-6.52 0-.91-.08-1.46-.18-2.05H12.48z"
-      />
-    </svg>
-);
 
 export default function LoginPage() {
   const router = useRouter();
@@ -62,10 +53,17 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
-          <Button variant="outline" className="w-full">
-            <GoogleIcon className="mr-2 h-4 w-4" />
-            Sign in with Google
-          </Button>
+          <div className="grid grid-cols-3 gap-2">
+            <Button variant="outline">
+              <GoogleIcon className="h-4 w-4" />
+            </Button>
+            <Button variant="outline">
+              <GithubIcon className="h-4 w-4" />
+            </Button>
+            <Button variant="outline">
+              <LinkedinIcon className="h-4 w-4" />
+            </Button>
+          </div>
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
