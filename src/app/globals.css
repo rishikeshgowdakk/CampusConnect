@@ -54,15 +54,19 @@
 @layer utilities {
   .fade-in {
     animation: fade-in 1s ease-out forwards;
-    opacity: 0;
   }
 
   .fade-in-up {
-    animation: fade-in-up 0.8s ease-out forwards;
+    animation: fade-in-up 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
     opacity: 0;
     transform: translateY(40px);
   }
 
+  .fade-in-persp {
+    animation: fade-in-perspective 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+    opacity: 0;
+  }
+  
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -80,6 +84,17 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-perspective {
+    from {
+      opacity: 0;
+      transform: translateY(60px) rotateX(-20deg) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg) scale(1);
     }
   }
 

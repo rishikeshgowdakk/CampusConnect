@@ -111,7 +111,7 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="quick-prep" className="bg-secondary/50 py-20 my-12 fade-in-up">
+        <section id="quick-prep" className="bg-secondary/50 py-20 my-12 fade-in-persp">
             <div className="container text-center">
                 <div className="mx-auto max-w-3xl">
                     <div className="inline-block bg-primary text-primary-foreground rounded-full p-3 mb-4 animate-pulse">
@@ -129,15 +129,15 @@ export default function Home() {
         </section>
 
         <section id="features" className="container my-20">
-          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 fade-in-up">
+          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 fade-in-persp">
             <h2 className="text-3xl font-bold tracking-tight font-headline">Everything You Need, in One Place</h2>
             <p className="text-muted-foreground max-w-2xl">
               CampusConnect integrates every aspect of your academic and social life into a single, seamless experience.
             </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 [perspective:1000px]">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, i) => (
-              <Card key={feature.title} className={`group flex flex-col items-center text-center p-6 transition-all duration-500 fade-in-up stagger-${(i % 3) + 1} hover:[transform:rotateY(0deg)_scale(1.05)] [transform:rotateY(15deg)]`}>
+              <Card key={feature.title} className={`group flex flex-col items-center text-center p-6 transition-all duration-500 fade-in-persp stagger-${(i % 3) + 1} hover:scale-105`}>
                  <div className="transition-all duration-500 group-hover:scale-110">
                     <CardHeader className="p-0 mb-4">
                       <div className="bg-primary/10 text-primary p-4 rounded-full transition-transform duration-300 group-hover:scale-110">
@@ -154,17 +154,17 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="testimonials" className="my-20 py-24 bg-secondary/50 fade-in-up">
-            <div className="container">
-                <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 fade-in-up">
+        <section id="testimonials" className="my-20 py-24 bg-secondary/50">
+            <div className="container [perspective:1000px]">
+                <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 fade-in-persp">
                     <h2 className="text-3xl font-bold tracking-tight font-headline">From Our Students</h2>
                     <p className="text-muted-foreground max-w-2xl">
                         See how CampusConnect is helping students achieve their goals.
                     </p>
                 </div>
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 [perspective:800px]">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {testimonials.map((testimonial, i) => (
-                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center transform transition-all duration-500 hover:scale-105 hover:shadow-xl fade-in-up stagger-${i+1} [transform:rotateY(15deg)] hover:[transform:rotateY(0deg)]`}>
+                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center transform transition-all duration-700 hover:scale-105 hover:shadow-xl fade-in-persp stagger-${i+1} [transform-style:preserve-3d] hover:[transform:rotateY(0deg)] [transform:rotateY(-15deg)]`}>
                             <CardHeader className="p-0 items-center">
                                 <Avatar className="w-20 h-20 mb-4 border-2 border-primary">
                                     <AvatarImage src={testimonial.avatar} data-ai-hint={testimonial.avatarHint}/>
