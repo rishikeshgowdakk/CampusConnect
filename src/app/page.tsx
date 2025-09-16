@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
   Briefcase,
   Calendar,
@@ -7,13 +7,13 @@ import {
   Megaphone,
   MessageSquare,
   Bot,
-  User,
-  Github,
-  Linkedin,
+  Star,
+  Zap,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Logo } from "@/components/icons";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const features = [
   {
@@ -48,9 +48,33 @@ const features = [
   },
 ];
 
+const testimonials = [
+    {
+        name: "Priya Sharma",
+        role: "Software Engineer @ TechCorp",
+        avatar: "https://picsum.photos/seed/priya/80/80",
+        avatarHint: "woman face",
+        testimonial: "The placement roadmaps and interview experiences on CampusConnect were a game-changer for my preparation. I landed my dream job thanks to the resources here!"
+    },
+    {
+        name: "Rahul Verma",
+        role: "Product Manager @ Innovate Inc.",
+        avatar: "https://picsum.photos/seed/rahul/80/80",
+        avatarHint: "man face",
+        testimonial: "Connecting with alumni through the forum gave me invaluable insights into the industry. The community is incredibly supportive and helpful."
+    },
+    {
+        name: "Anjali Singh",
+        role: "Data Scientist @ Future Solutions",
+        avatar: "https://picsum.photos/seed/anjali/80/80",
+        avatarHint: "woman smiling",
+        testimonial: "I never missed a single campus event thanks to the real-time notifications. The workshops were amazing for skill-building. Highly recommended!"
+    }
+]
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-dvh flex-col bg-background">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -81,22 +105,39 @@ export default function Home() {
                 <Link href="/signup">Get Started</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="/login">Learn More</Link>
+                <Link href="#features">Explore Features</Link>
               </Button>
             </div>
           </div>
         </section>
 
         <section id="hero-image" className="container my-12 fade-in-up stagger-3">
-            <div className="overflow-hidden rounded-xl shadow-2xl shadow-primary/10 border border-primary/20">
+            <div className="overflow-hidden rounded-xl shadow-2xl shadow-primary/10 border border-primary/20 group">
                 <Image
                     src="https://picsum.photos/seed/1/1200/600"
                     alt="CampusConnect Hero Image"
                     width={1200}
                     height={600}
-                    className="w-full"
+                    className="w-full transition-transform duration-500 ease-in-out group-hover:scale-105"
                     data-ai-hint="university campus"
                 />
+            </div>
+        </section>
+        
+        <section id="quick-prep" className="bg-secondary/50 py-20 my-12 fade-in-up">
+            <div className="container text-center">
+                <div className="mx-auto max-w-3xl">
+                    <div className="inline-block bg-primary text-primary-foreground rounded-full p-3 mb-4 animate-pulse">
+                        <Zap className="h-8 w-8" />
+                    </div>
+                    <h2 className="text-3xl font-bold tracking-tight font-headline mb-4">Quick Placement Prep</h2>
+                    <p className="text-muted-foreground mb-6">
+                        Jumpstart your placement journey. Upload your resume and transcript to get a personalized study plan and resource suggestions in seconds.
+                    </p>
+                    <Button asChild size="lg">
+                        <Link href="/placements">Start Now</Link>
+                    </Button>
+                </div>
             </div>
         </section>
 
@@ -111,7 +152,7 @@ export default function Home() {
             {features.map((feature, i) => (
               <Card key={feature.title} className={`flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:shadow-lg fade-in-up stagger-${(i % 3) + 1}`}>
                 <CardHeader className="p-0 mb-4">
-                  <div className="bg-primary/10 text-primary p-4 rounded-full">
+                  <div className="bg-primary/10 text-primary p-4 rounded-full transition-transform duration-300 group-hover:scale-110">
                     {feature.icon}
                   </div>
                 </CardHeader>
@@ -123,45 +164,47 @@ export default function Home() {
             ))}
           </div>
         </section>
-
-        <section id="profile-preview" className="my-20 py-24 bg-secondary/50 fade-in-up">
-            <div className="container grid md:grid-cols-2 gap-12 items-center">
-                <div className="fade-in-up stagger-1">
-                    <h2 className="text-3xl font-bold tracking-tight font-headline mb-4">Showcase Your Skills</h2>
-                    <p className="text-muted-foreground mb-6">
-                        Create a personalized profile that highlights your achievements, projects, and social links. Let recruiters and peers see your potential.
+        
+        <section id="testimonials" className="my-20 py-24 bg-secondary/50 fade-in-up">
+            <div className="container">
+                <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 fade-in-up">
+                    <h2 className="text-3xl font-bold tracking-tight font-headline">From Our Students</h2>
+                    <p className="text-muted-foreground max-w-2xl">
+                        See how CampusConnect is helping students achieve their goals.
                     </p>
-                    <Button asChild size="lg">
-                        <Link href="/signup">Create Your Profile</Link>
-                    </Button>
                 </div>
-                <div className="fade-in-up stagger-2">
-                     <Card className="shadow-lg transform transition-transform duration-500 hover:scale-105">
-                        <CardHeader className="flex flex-row items-center gap-4">
-                            <User className="w-16 h-16 p-3 bg-muted rounded-full text-primary"/>
-                            <div>
-                                <CardTitle>Your Name</CardTitle>
-                                <p className="text-muted-foreground">Student @ University</p>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-sm mb-4">Passionate developer and problem solver. Actively seeking opportunities in software engineering.</p>
-                            <div className="flex space-x-4 text-sm">
-                                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors"><Linkedin className="h-4 w-4" /> LinkedIn</Link>
-                                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors"><Github className="h-4 w-4" /> GitHub</Link>
-                            </div>
-                        </CardContent>
-                    </Card>
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    {testimonials.map((testimonial, i) => (
+                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center transform transition-all duration-500 hover:scale-105 hover:shadow-xl fade-in-up stagger-${i+1}`}>
+                            <CardHeader className="p-0 items-center">
+                                <Avatar className="w-20 h-20 mb-4 border-2 border-primary">
+                                    <AvatarImage src={testimonial.avatar} data-ai-hint={testimonial.avatarHint}/>
+                                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                                <CardDescription>{testimonial.role}</CardDescription>
+                            </CardHeader>
+                            <CardContent className="pt-4">
+                                <div className="flex justify-center mb-4 text-yellow-400">
+                                    {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current" />)}
+                                </div>
+                                <p className="text-muted-foreground text-sm italic">&quot;{testimonial.testimonial}&quot;</p>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </div>
             </div>
         </section>
+
       </main>
 
-      <footer className="py-6 md:px-8 md:py-0 border-t border-border/40">
+      <footer className="py-6 md:px-8 md:py-0 border-t border-border/40 bg-secondary/30">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            Built by You. Powered by AI.
-          </p>
+          <div className="flex items-center gap-4">
+            <Link href="#features" className="text-sm text-muted-foreground hover:text-primary transition-colors">Features</Link>
+            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms & Conditions</Link>
+            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
+          </div>
           <p className="text-center text-sm text-muted-foreground">
             &copy; {new Date().getFullYear()} CampusConnect. All Rights Reserved.
           </p>
