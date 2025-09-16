@@ -42,26 +42,23 @@ export default function LoginPage() {
     const email = emailInput.value;
     const password = passwordInput.value;
 
-    // Simulate network delay
-    setTimeout(() => {
-        const user = findUserByEmail(email);
+    const user = findUserByEmail(email);
 
-        if (user && user.password === password) {
-            setCurrentUser(user.id);
-            toast({
-                title: "Login Successful",
-                description: `Welcome back, ${user.fullName}!`,
-            });
-            router.push(`/dashboard?role=${role}`);
-        } else {
-            toast({
-                title: "Login Failed",
-                description: "Invalid email or password. Please try again.",
-                variant: "destructive",
-            });
-            setIsLoading(false);
-        }
-    }, 100);
+    if (user && user.password === password) {
+        setCurrentUser(user.id);
+        toast({
+            title: "Login Successful",
+            description: `Welcome back, ${user.fullName}!`,
+        });
+        router.push(`/dashboard?role=${role}`);
+    } else {
+        toast({
+            title: "Login Failed",
+            description: "Invalid email or password. Please try again.",
+            variant: "destructive",
+        });
+        setIsLoading(false);
+    }
   };
 
   const renderLoginForm = (currentRole: "student" | "faculty") => (
@@ -117,7 +114,7 @@ export default function LoginPage() {
             </div>
             </div>
         )}
-      <Card className="w-full max-w-md mx-auto shadow-xl animate-in fade-in-0 slide-in-from-bottom-10 duration-500">
+      <Card className="w-full max-w-md mx-auto shadow-xl animate-in fade-in-0 slide-in-from-bottom-10 duration-300">
         <CardHeader className="space-y-1 text-center">
           <Link href="/" className="flex items-center justify-center space-x-2 mb-4">
             <Logo className="h-8 w-8 text-primary" />

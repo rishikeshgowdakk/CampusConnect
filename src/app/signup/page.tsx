@@ -88,33 +88,31 @@ export default function SignupPage() {
       return;
     }
     
-    setTimeout(() => {
-        try {
-            createUser({
-                fullName: data.fullName as string,
-                email: data.email as string,
-                password: data.password as string,
-                usn: data.usn as string,
-                year: Number(data.year),
-                semester: Number(data.semester),
-                linkedin: data.linkedin as string,
-                leetcode: data.leetcode as string,
-            });
-            toast({
-                title: "Account Created!",
-                description: "You can now log in with your new account.",
-            });
-            router.push('/login');
-        } catch (error: any) {
-            toast({
-                title: "Signup Failed",
-                description: error.message || "An unexpected error occurred.",
-                variant: "destructive",
-            });
-        } finally {
-            setIsLoading(false);
-        }
-    }, 100);
+    try {
+        createUser({
+            fullName: data.fullName as string,
+            email: data.email as string,
+            password: data.password as string,
+            usn: data.usn as string,
+            year: Number(data.year),
+            semester: Number(data.semester),
+            linkedin: data.linkedin as string,
+            leetcode: data.leetcode as string,
+        });
+        toast({
+            title: "Account Created!",
+            description: "You can now log in with your new account.",
+        });
+        router.push('/login');
+    } catch (error: any) {
+        toast({
+            title: "Signup Failed",
+            description: error.message || "An unexpected error occurred.",
+            variant: "destructive",
+        });
+    } finally {
+        setIsLoading(false);
+    }
   }
 
   return (

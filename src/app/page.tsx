@@ -88,7 +88,7 @@ export default function Home() {
     setLoading(id);
     setTimeout(() => {
       router.push(path);
-    }, 250);
+    }, 100);
   };
 
   useEffect(() => {
