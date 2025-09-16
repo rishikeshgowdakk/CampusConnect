@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -174,12 +175,11 @@ export default function Home() {
                     <div className="flex flex-wrap justify-center gap-4 mt-8">
                         <Button 
                             size="lg" 
-                            className="bg-blue-600 hover:bg-blue-700 text-white shine-button"
+                            className="shine-button"
                             onClick={() => handleLinkClick('/signup', 'get-started')}
                             disabled={!!loading}
                         >
-                            <GoogleIcon className="mr-2 h-5 w-5" />
-                            Sign in with Google
+                            Get Started
                         </Button>
                         <Button asChild variant="outline" size="lg" className="shine-button bg-transparent hover:bg-white/10 border-white text-white">
                             <Link href="#features">Explore Features</Link>
@@ -332,5 +332,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
