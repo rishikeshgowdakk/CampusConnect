@@ -2,7 +2,8 @@
 'use client';
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
+import React, { useState, useEffect } from "react";
 import {
   Briefcase,
   Calendar,
@@ -29,7 +30,6 @@ import {
 import { Logo } from "@/components/icons";
 import { UserNav } from "@/components/user-nav";
 import Chatbot from "@/components/chatbot";
-import React from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const allNavItems = [
@@ -45,12 +45,34 @@ const allNavItems = [
 
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const role = searchParams.get('role') || 'student';
+  const [isLoading, setIsLoading] = useState(false);
 
   const navItems = allNavItems.filter(item => item.role.includes(role));
 
+  const handleLinkClick = (href: string) => {
+    // Only show loader if navigating to a different page
+    if (pathname !== href) {
+      setIsLoading(true);
+    }
+  };
+
+  // Turn off loader when navigation is complete
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname, searchParams]);
+
   return (
     <SidebarProvider>
+      {isLoading && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm animate-in fade-in-0">
+          <div className="flex flex-col items-center gap-4">
+            <Logo className="h-16 w-16 text-primary animate-pulse-grow" />
+            <p className="text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      )}
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center gap-2">
@@ -61,9 +83,9 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
         <SidebarContent>
           <SidebarMenu>
             {navItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
+              <SidebarMenuItem key={item.href} onClick={() => handleLinkClick(item.href)}>
                 <Link href={`${item.href}?role=${role}`} passHref>
-                  <SidebarMenuButton tooltip={item.label}>
+                  <SidebarMenuButton tooltip={item.label} isActive={pathname === item.href}>
                     {item.icon}
                     <span>{item.label}</span>
                   </SidebarMenuButton>
