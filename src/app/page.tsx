@@ -66,15 +66,15 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
-        <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+        <section className="container grid items-center justify-center gap-6 pb-8 pt-12 md:py-20 text-center">
           <div className="flex flex-col items-center gap-4 text-center">
-            <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-5xl lg:text-6xl font-headline">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline fade-in-up">
               The All-In-One Platform for Your Campus Life
             </h1>
-            <p className="max-w-[700px] text-lg text-muted-foreground">
+            <p className="max-w-[700px] text-lg text-muted-foreground fade-in-up stagger-1">
               Connect, collaborate, and conquer your college journey. From placements to discussions, we&apos;ve got you covered.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 fade-in-up stagger-2">
               <Button asChild size="lg">
                 <Link href="/signup">Get Started</Link>
               </Button>
@@ -85,7 +85,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="hero-image" className="container my-12">
+        <section id="hero-image" className="container my-12 fade-in-up stagger-3">
             <div className="overflow-hidden rounded-xl shadow-2xl">
                 <Image
                     src="https://picsum.photos/seed/1/1200/600"
@@ -99,15 +99,15 @@ export default function Home() {
         </section>
 
         <section id="features" className="container my-20">
-          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12">
+          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 fade-in-up">
             <h2 className="text-3xl font-bold tracking-tight font-headline">Everything You Need, in One Place</h2>
             <p className="text-muted-foreground max-w-2xl">
               CampusConnect integrates every aspect of your academic and social life into a single, seamless experience.
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <Card key={feature.title} className="flex flex-col items-center text-center p-6 transition-transform transform hover:-translate-y-2 hover:shadow-xl">
+            {features.map((feature, i) => (
+              <Card key={feature.title} className={`flex flex-col items-center text-center p-6 transition-transform transform hover:-translate-y-2 hover:shadow-xl fade-in-up stagger-${i % 3}`}>
                 <CardHeader className="p-0 mb-4">
                   <div className="bg-primary/10 text-primary p-4 rounded-full">
                     {feature.icon}
@@ -122,7 +122,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="profile-preview" className="container my-20">
+        <section id="profile-preview" className="container my-20 fade-in-up">
             <div className="bg-card p-8 rounded-xl shadow-lg border">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                     <div>
