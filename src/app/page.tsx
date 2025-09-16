@@ -98,7 +98,7 @@ export default function Home() {
               The All-In-One Platform for Your Campus Life
             </h1>
             <p className="max-w-[700px] text-lg text-muted-foreground fade-in-up stagger-1">
-              Connect, collaborate, and conquer your college journey. From placements to discussions, we&apos;ve got you covered.
+              Connect, collaborate, and conquer your college journey. From placements to discussions, we've got you covered.
             </p>
             <div className="flex gap-4 fade-in-up stagger-2">
                <Button asChild size="lg" className="sparkle-button">
@@ -111,15 +111,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="hero-image" className="container my-12 fade-in-up stagger-3 [perspective:800px]">
+        <section id="hero-image" className="container my-12 fade-in-up stagger-3 [perspective:1000px]">
             <div className="overflow-hidden rounded-xl bg-primary/10 shadow-2xl shadow-primary/10 border border-primary/20 group transition-all duration-500 ease-in-out hover:[transform:rotateX(10deg)_rotateY(-10deg)_scale(1.05)]">
                 <Image
-                    src="https://picsum.photos/seed/college-students/1200/600"
+                    src="https://picsum.photos/seed/students-group/1200/600"
                     alt="A group of diverse college students smiling and walking on a university campus."
                     width={1200}
                     height={600}
                     className="w-full transition-transform duration-500 ease-in-out group-hover:scale-110"
-                    data-ai-hint="college students campus"
+                    data-ai-hint="college students standing"
                 />
             </div>
         </section>
@@ -213,5 +213,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
