@@ -8,6 +8,8 @@ import {
   MessageSquare,
   Bot,
   User,
+  Github,
+  Linkedin,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,7 +51,7 @@ const features = [
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Logo className="h-6 w-6 text-primary" />
@@ -79,14 +81,14 @@ export default function Home() {
                 <Link href="/signup">Get Started</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="/login">Sign In</Link>
+                <Link href="/login">Learn More</Link>
               </Button>
             </div>
           </div>
         </section>
 
         <section id="hero-image" className="container my-12 fade-in-up stagger-3">
-            <div className="overflow-hidden rounded-xl shadow-2xl">
+            <div className="overflow-hidden rounded-xl shadow-2xl shadow-primary/10 border border-primary/20">
                 <Image
                     src="https://picsum.photos/seed/1/1200/600"
                     alt="CampusConnect Hero Image"
@@ -107,7 +109,7 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, i) => (
-              <Card key={feature.title} className={`flex flex-col items-center text-center p-6 transition-transform transform hover:-translate-y-2 hover:shadow-xl fade-in-up stagger-${i % 3}`}>
+              <Card key={feature.title} className={`flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:shadow-lg fade-in-up stagger-${(i % 3) + 1}`}>
                 <CardHeader className="p-0 mb-4">
                   <div className="bg-primary/10 text-primary p-4 rounded-full">
                     {feature.icon}
@@ -122,43 +124,40 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="profile-preview" className="container my-20 fade-in-up">
-            <div className="bg-card p-8 rounded-xl shadow-lg border">
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <h2 className="text-3xl font-bold tracking-tight font-headline mb-4">Showcase Your Skills</h2>
-                        <p className="text-muted-foreground mb-6">
-                            Create a personalized profile that highlights your achievements, projects, and social links. Let recruiters and peers see your potential.
-                        </p>
-                        <Button asChild>
-                            <Link href="/signup">Create Your Profile</Link>
-                        </Button>
-                    </div>
-                    <div className="bg-background/50 p-6 rounded-lg border">
-                         <Card>
-                            <CardHeader className="flex flex-row items-center gap-4">
-                                <User className="w-16 h-16 p-3 bg-muted rounded-full"/>
-                                <div>
-                                    <CardTitle>Your Name</CardTitle>
-                                    <p className="text-muted-foreground">Student @ University</p>
-                                </div>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-sm text-muted-foreground mb-4">Passionate developer and problem solver. Actively seeking opportunities in software engineering.</p>
-                                <div className="flex space-x-4 text-sm text-muted-foreground">
-                                    <span><strong>LinkedIn:</strong> /in/yourprofile</span>
-                                    <span><strong>GitHub:</strong> /yourusername</span>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </div>
+        <section id="profile-preview" className="my-20 py-24 bg-secondary/50 fade-in-up">
+            <div className="container grid md:grid-cols-2 gap-12 items-center">
+                <div className="fade-in-up stagger-1">
+                    <h2 className="text-3xl font-bold tracking-tight font-headline mb-4">Showcase Your Skills</h2>
+                    <p className="text-muted-foreground mb-6">
+                        Create a personalized profile that highlights your achievements, projects, and social links. Let recruiters and peers see your potential.
+                    </p>
+                    <Button asChild size="lg">
+                        <Link href="/signup">Create Your Profile</Link>
+                    </Button>
+                </div>
+                <div className="fade-in-up stagger-2">
+                     <Card className="shadow-lg transform transition-transform duration-500 hover:scale-105">
+                        <CardHeader className="flex flex-row items-center gap-4">
+                            <User className="w-16 h-16 p-3 bg-muted rounded-full text-primary"/>
+                            <div>
+                                <CardTitle>Your Name</CardTitle>
+                                <p className="text-muted-foreground">Student @ University</p>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-sm mb-4">Passionate developer and problem solver. Actively seeking opportunities in software engineering.</p>
+                            <div className="flex space-x-4 text-sm">
+                                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors"><Linkedin className="h-4 w-4" /> LinkedIn</Link>
+                                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors"><Github className="h-4 w-4" /> GitHub</Link>
+                            </div>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         </section>
-
       </main>
 
-      <footer className="py-6 md:px-8 md:py-0 border-t">
+      <footer className="py-6 md:px-8 md:py-0 border-t border-border/40">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
             Built by You. Powered by AI.
