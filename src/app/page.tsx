@@ -122,16 +122,16 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main className="flex-1 [perspective:1000px]">
         <section className="container grid items-center justify-center gap-6 pb-8 pt-12 md:py-20 text-center">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline animate-in">
+          <div className="flex flex-col items-center gap-4 text-center scroll-animate">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline">
               The All-In-One Platform for Your Campus Life
             </h1>
-            <p className="max-w-[700px] text-lg text-muted-foreground animate-in stagger-1">
+            <p className="max-w-[700px] text-lg text-muted-foreground">
               Connect, collaborate, and conquer your college journey. From placements to discussions, we've got you covered.
             </p>
-            <div className="flex gap-4 animate-in stagger-2">
+            <div className="flex gap-4">
                <Button asChild size="lg" className="sparkle-button">
                 <Link href="/signup">Get Started</Link>
               </Button>
@@ -143,7 +143,7 @@ export default function Home() {
         </section>
         
         <section id="quick-prep" className="bg-secondary/50 py-20 my-12">
-            <div className="container text-center [perspective:1000px]">
+            <div className="container text-center">
                 <div className="mx-auto max-w-3xl scroll-animate">
                     <div className="inline-block bg-primary text-primary-foreground rounded-full p-3 mb-4 animate-pulse">
                         <Zap className="h-8 w-8" />
@@ -160,7 +160,7 @@ export default function Home() {
         </section>
 
         <section id="features" className="container my-20">
-          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 [perspective:1000px]">
+          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12">
             <div className="scroll-animate">
               <h2 className="text-3xl font-bold tracking-tight font-headline">Everything You Need, in One Place</h2>
               <p className="text-muted-foreground max-w-2xl">
@@ -168,7 +168,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 [perspective:1000px]">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, i) => (
               <Card key={feature.title} className={`group flex flex-col items-center text-center p-6 scroll-animate stagger-${(i % 3) + 1}`}>
                  <div className="transition-all duration-500 group-hover:scale-110">
@@ -188,7 +188,7 @@ export default function Home() {
         </section>
         
         <section id="testimonials" className="my-20 py-24 bg-secondary/50">
-            <div className="container [perspective:1000px]">
+            <div className="container">
                 <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 scroll-animate">
                     <h2 className="text-3xl font-bold tracking-tight font-headline">From Our Students</h2>
                     <p className="text-muted-foreground max-w-2xl">
