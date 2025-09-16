@@ -1,3 +1,35 @@
+
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-image",
+      "description": "A modern university campus building",
+      "imageUrl": "https://picsum.photos/seed/1/1200/800",
+      "imageHint": "university campus"
+    },
+    {
+      "id": "feature-placements",
+      "description": "Students collaborating on a project",
+      "imageUrl": "https://picsum.photos/seed/2/600/400",
+      "imageHint": "students collaborating"
+    },
+    {
+      "id": "feature-forum",
+      "description": "A group of people in a discussion",
+      "imageUrl": "https://picsum.photos/seed/3/600/400",
+      "imageHint": "people discussion"
+    },
+    {
+      "id": "feature-events",
+      "description": "A person speaking at a conference",
+      "imageUrl": "https://picsum.photos/seed/4/600/400",
+      "imageHint": "conference speaker"
+    },
+    {
+      "id": "user-avatar",
+      "description": "A generic user avatar",
+      "imageUrl": "https://picsum.photos/seed/avatar/40/40",
+      "imageHint": "person avatar"
+    }
+  ]
 }
