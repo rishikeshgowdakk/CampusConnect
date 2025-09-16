@@ -18,13 +18,15 @@ export const Logo = (props: SVGProps<SVGSVGElement>) => (
 );
 
 export const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg role="img" viewBox="0 0 24 24" {...props}>
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>Google</title>
       <path
         fill="currentColor"
         d="M12.48 10.92v3.28h7.84c-.24 1.84-.85 3.18-1.73 4.1-1.02 1.02-2.62 1.98-4.63 1.98-3.52 0-6.43-2.91-6.43-6.49s2.91-6.49 6.43-6.49c2.03 0 3.36.85 4.17 1.62l2.52-2.52C17.66 1.89 15.47 1 12.48 1 7.01 1 3 5.02 3 9.5s4.01 8.5 9.48 8.5c2.93 0 5.15-1 6.85-2.62 1.94-1.87 2.58-4.49 2.58-6.52 0-.91-.08-1.46-.18-2.05H12.48z"
       />
     </svg>
 );
+
 
 export const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -36,6 +38,7 @@ export const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <title>LinkedIn</title>
         <path 
         fill="currentColor"
         d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
