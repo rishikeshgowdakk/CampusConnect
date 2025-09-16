@@ -97,8 +97,8 @@ export default function SignupPage() {
                 usn: data.usn as string,
                 year: Number(data.year),
                 semester: Number(data.semester),
-                linkedin: "", // Optional
-                leetcode: "", // Optional
+                linkedin: data.linkedin as string || "",
+                leetcode: data.leetcode as string || "",
             });
             toast({
                 title: "Account Created!",
@@ -171,6 +171,14 @@ export default function SignupPage() {
                 <Label htmlFor="semester">Semester</Label>
                 <Input name="semester" id="semester" type="number" placeholder="6" required />
                 </div>
+            </div>
+             <div className="grid gap-2">
+                <Label htmlFor="linkedin">LinkedIn Profile (Optional)</Label>
+                <Input name="linkedin" id="linkedin" type="url" placeholder="https://linkedin.com/in/yourprofile" />
+            </div>
+             <div className="grid gap-2">
+                <Label htmlFor="leetcode">LeetCode Profile (Optional)</Label>
+                <Input name="leetcode" id="leetcode" type="url" placeholder="https://leetcode.com/yourusername" />
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>

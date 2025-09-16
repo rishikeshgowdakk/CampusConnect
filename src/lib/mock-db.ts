@@ -1,4 +1,5 @@
 
+
 // In a real application, this would be a proper database.
 // For this prototype, we'll use localStorage to simulate data persistence.
 
@@ -13,6 +14,7 @@ export type User = {
     linkedin: string;
     leetcode: string;
     bio?: string;
+    github?: string;
 };
 
 // Function to get all users from localStorage
@@ -61,7 +63,12 @@ export const createUser = (userData: Omit<User, 'id'>): User => {
         throw new Error("User with this email already exists.");
     }
     const id = Date.now().toString();
-    const newUser: User = { id, ...userData };
+    const newUser: User = { 
+        id, 
+        ...userData,
+        linkedin: userData.linkedin || "",
+        leetcode: userData.leetcode || ""
+    };
     users[id] = newUser;
     saveUsers(users);
     return newUser;
@@ -88,4 +95,3 @@ export const updateUser = (userId: string, updatedData: Partial<User>): User | n
     saveUsers(users);
     return users[userId];
 };
-
