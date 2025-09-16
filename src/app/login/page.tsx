@@ -1,3 +1,6 @@
+
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/icons";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg role="img" viewBox="0 0 24 24" {...props}>
@@ -22,6 +27,27 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+
+    // This is a simulation. In a real app, you would make an API call
+    // to your backend to check if the user exists.
+    if (email.includes("new")) {
+      toast({
+        title: "Account not found",
+        description: "This email is not registered. Please create a new account.",
+        variant: "destructive",
+      });
+      router.push("/signup");
+    } else {
+      router.push("/dashboard");
+    }
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md mx-auto shadow-xl">
@@ -53,6 +79,7 @@ export default function LoginPage() {
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" placeholder="example@gmail.com" />
+            <p className="text-xs text-muted-foreground">Hint: Use an email with `new` in it to test redirection.</p>
           </div>
           <div className="grid gap-2">
             <div className="flex items-center">
@@ -68,8 +95,8 @@ export default function LoginPage() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-           <Button className="w-full" asChild>
-            <Link href="/dashboard">Login</Link>
+           <Button className="w-full" onClick={handleLogin}>
+            Login
           </Button>
           <div className="text-center text-sm">
             Don&apos;t have an account?{" "}
