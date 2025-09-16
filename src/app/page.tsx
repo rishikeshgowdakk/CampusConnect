@@ -135,10 +135,10 @@ export default function Home() {
               CampusConnect integrates every aspect of your academic and social life into a single, seamless experience.
             </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 [perspective:1000px]">
             {features.map((feature, i) => (
-              <Card key={feature.title} className={`group flex flex-col items-center text-center p-6 transition-all duration-500 fade-in-up stagger-${(i % 3) + 1} [perspective:1000px]`}>
-                 <div className="transition-all duration-500 group-hover:[transform:rotateY(15deg)_scale(1.05)]">
+              <Card key={feature.title} className={`group flex flex-col items-center text-center p-6 transition-all duration-500 fade-in-up stagger-${(i % 3) + 1} hover:[transform:rotateY(0deg)_scale(1.05)] [transform:rotateY(15deg)]`}>
+                 <div className="transition-all duration-500 group-hover:scale-110">
                     <CardHeader className="p-0 mb-4">
                       <div className="bg-primary/10 text-primary p-4 rounded-full transition-transform duration-300 group-hover:scale-110">
                         {feature.icon}
@@ -162,9 +162,9 @@ export default function Home() {
                         See how CampusConnect is helping students achieve their goals.
                     </p>
                 </div>
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 [perspective:800px]">
                     {testimonials.map((testimonial, i) => (
-                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center transform transition-all duration-500 hover:scale-105 hover:shadow-xl fade-in-up stagger-${i+1} [perspective:800px] hover:[transform:rotateY(15deg)]`}>
+                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center transform transition-all duration-500 hover:scale-105 hover:shadow-xl fade-in-up stagger-${i+1} [transform:rotateY(15deg)] hover:[transform:rotateY(0deg)]`}>
                             <CardHeader className="p-0 items-center">
                                 <Avatar className="w-20 h-20 mb-4 border-2 border-primary">
                                     <AvatarImage src={testimonial.avatar} data-ai-hint={testimonial.avatarHint}/>
