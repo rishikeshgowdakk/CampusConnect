@@ -11,12 +11,14 @@ import {
   Bot,
   Star,
   Zap,
+  Loader2,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Logo } from "@/components/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const features = [
   {
@@ -76,6 +78,15 @@ const testimonials = [
 ]
 
 export default function Home() {
+  const router = useRouter();
+  const [loading, setLoading] = useState<string | null>(null);
+
+  const handleLinkClick = (path: string, id: string) => {
+    setLoading(id);
+    setTimeout(() => {
+      router.push(path);
+    }, 1000);
+  };
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -114,15 +125,19 @@ export default function Home() {
           </Link>
           <div className="flex flex-1 items-center justify-end space-x-4">
             <nav className="flex items-center space-x-1">
-              <Button asChild className="sparkle-button">
-                <Link href="/login">Login</Link>
+              <Button 
+                className="shine-button" 
+                onClick={() => handleLinkClick('/login', 'login')}
+                disabled={!!loading}
+              >
+                {loading === 'login' ? <Loader2 className="animate-spin" /> : 'Login'}
               </Button>
             </nav>
           </div>
         </div>
       </header>
 
-      <main className="flex-1 [perspective:1000px]">
+      <main className="flex-1 [perspective:2000px]">
         <section className="container grid items-center justify-center gap-6 pb-8 pt-12 md:py-20 text-center">
           <div className="flex flex-col items-center gap-4 text-center scroll-animate">
             <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline">
@@ -132,19 +147,24 @@ export default function Home() {
               Connect, collaborate, and conquer your college journey. From placements to discussions, we've got you covered.
             </p>
             <div className="flex gap-4">
-               <Button asChild size="lg" className="sparkle-button">
-                <Link href="/signup">Get Started</Link>
+               <Button 
+                size="lg" 
+                className="shine-button"
+                onClick={() => handleLinkClick('/signup', 'get-started')}
+                disabled={!!loading}
+              >
+                {loading === 'get-started' ? <Loader2 className="animate-spin" /> : 'Get Started'}
               </Button>
-              <Button asChild variant="outline" size="lg" className="sparkle-button-outline">
+              <Button asChild variant="outline" size="lg" className="shine-button">
                 <Link href="#features">Explore Features</Link>
               </Button>
             </div>
           </div>
         </section>
         
-        <section id="quick-prep" className="bg-secondary/50 py-20 my-12">
+        <section id="quick-prep" className="bg-secondary/50 py-20 my-12 scroll-animate">
             <div className="container text-center">
-                <div className="mx-auto max-w-3xl scroll-animate">
+                <div className="mx-auto max-w-3xl">
                     <div className="inline-block bg-primary text-primary-foreground rounded-full p-3 mb-4 animate-pulse">
                         <Zap className="h-8 w-8" />
                     </div>
@@ -152,16 +172,21 @@ export default function Home() {
                     <p className="text-muted-foreground mb-6">
                         Jumpstart your placement journey. Upload your resume and transcript to get a personalized study plan and resource suggestions in seconds.
                     </p>
-                    <Button asChild size="lg" className="sparkle-button">
-                        <Link href="/placements">Start Now</Link>
-                    </Button>
+                     <Button 
+                        size="lg" 
+                        className="shine-button"
+                        onClick={() => handleLinkClick('/placements', 'start-now')}
+                        disabled={!!loading}
+                      >
+                         {loading === 'start-now' ? <Loader2 className="animate-spin" /> : 'Start Now'}
+                      </Button>
                 </div>
             </div>
         </section>
 
         <section id="features" className="container my-20">
-          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12">
-            <div className="scroll-animate">
+          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 scroll-animate">
+            <div>
               <h2 className="text-3xl font-bold tracking-tight font-headline">Everything You Need, in One Place</h2>
               <p className="text-muted-foreground max-w-2xl">
                 CampusConnect integrates every aspect of your academic and social life into a single, seamless experience.
