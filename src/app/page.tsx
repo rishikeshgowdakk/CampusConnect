@@ -84,7 +84,7 @@ export default function Home() {
     setLoading(id);
     setTimeout(() => {
       router.push(path);
-    }, 1500); // Increased timeout for the animation to be visible
+    }, 500); // Reduced timeout for a faster transition
   };
 
   useEffect(() => {
@@ -219,9 +219,9 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="testimonials" className="my-20 py-24 bg-secondary/50">
+        <section id="testimonials" className="my-20 py-24 bg-secondary/50 scroll-animate">
             <div className="container">
-                <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 scroll-animate">
+                <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12">
                     <h2 className="text-3xl font-bold tracking-tight font-headline">From Our Students</h2>
                     <p className="text-muted-foreground max-w-2xl">
                         See how CampusConnect is helping students achieve their goals.
