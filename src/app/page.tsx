@@ -83,7 +83,6 @@ const testimonials = [
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
-  const heroImage = PlaceHolderImages.find(p => p.id === 'hero-graduation');
 
   const handleLinkClick = (path: string, id: string) => {
     setLoading(id);
@@ -151,41 +150,30 @@ export default function Home() {
       </header>
 
       <main className="flex-1 [perspective:2000px]">
-        <section className="relative h-[80vh] w-full">
-            <div className="absolute inset-0 bg-black/50 z-10" />
-            {heroImage && 
-              <Image 
-                src={heroImage.imageUrl} 
-                alt={heroImage.description}
-                fill
-                className="object-cover"
-                data-ai-hint={heroImage.imageHint}
-                priority
-              />
-            }
-            <div className="container relative z-20 flex flex-col items-center justify-center h-full text-center text-white">
-                <div className="max-w-4xl scroll-animate in-view">
-                    <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline">
-                    Where Campuses <span className="text-cyan-400">Come Alive</span> Digitally
-                    </h1>
-                    <p className="max-w-2xl mx-auto mt-4 text-lg text-white/80">
-                    Connect, collaborate, and thrive in the ultimate digital campus ecosystem for students, faculty, and alumni.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-4 mt-8">
-                        <Button 
-                            size="lg" 
-                            className="shine-button"
-                            onClick={() => handleLinkClick('/signup', 'get-started')}
-                            disabled={!!loading}
-                        >
-                            Get Started
-                        </Button>
-                        <Button asChild variant="outline" size="lg" className="shine-button bg-transparent hover:bg-white/10 border-white text-white">
-                            <Link href="#features">Explore Features</Link>
-                        </Button>
-                    </div>
-                </div>
+         <section className="py-20 md:py-32">
+          <div className="container text-center">
+            <div className="max-w-4xl mx-auto scroll-animate in-view">
+              <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline">
+                The All-In-One Platform for Your Campus Life
+              </h1>
+              <p className="max-w-2xl mx-auto mt-4 text-lg text-muted-foreground">
+                Connect, collaborate, and conquer your college journey. From placements to discussions, we've got you covered.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 mt-8">
+                <Button 
+                    size="lg" 
+                    className="shine-button"
+                    onClick={() => handleLinkClick('/signup', 'get-started')}
+                    disabled={!!loading}
+                >
+                    Get Started
+                </Button>
+                <Button asChild variant="outline" size="lg" className="shine-button">
+                    <Link href="#features">Explore Features</Link>
+                </Button>
+              </div>
             </div>
+          </div>
         </section>
         
         <section id="quick-prep" className="bg-secondary/50 py-20 my-12 scroll-animate">
