@@ -97,8 +97,8 @@ export default function SignupPage() {
                 usn: data.usn as string,
                 year: Number(data.year),
                 semester: Number(data.semester),
-                linkedin: data.linkedin as string,
-                leetcode: data.leetcode as string,
+                linkedin: "", // Optional
+                leetcode: "", // Optional
             });
             toast({
                 title: "Account Created!",
@@ -118,7 +118,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+    <div className="flex min-h-screen items-center justify-center bg-background p-4 animate-in">
       <Card className="w-full max-w-md mx-auto shadow-xl">
         <CardHeader className="space-y-1 text-center">
             <Link href="/" className="flex items-center justify-center space-x-2 mb-4">
@@ -133,10 +133,10 @@ export default function SignupPage() {
         <form onSubmit={handleSignup}>
             <CardContent className="grid gap-4">
             <div className="grid grid-cols-2 gap-2">
-                <Button variant="outline" type="button">
+                <Button variant="outline" type="button" className="transition-transform hover:scale-105">
                     <GithubIcon className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" type="button">
+                <Button variant="outline" type="button" className="transition-transform hover:scale-105">
                     <LinkedinIcon className="h-4 w-4" />
                 </Button>
             </div>
@@ -173,14 +173,6 @@ export default function SignupPage() {
                 </div>
             </div>
             <div className="grid gap-2">
-                <Label htmlFor="linkedin">LinkedIn Profile</Label>
-                <Input name="linkedin" id="linkedin" type="url" placeholder="https://linkedin.com/in/yourprofile" required/>
-            </div>
-            <div className="grid gap-2">
-                <Label htmlFor="leetcode">LeetCode Profile</Label>
-                <Input name="leetcode" id="leetcode" type="url" placeholder="https://leetcode.com/yourusername" required/>
-            </div>
-            <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
                 <Input 
                 name="password"
@@ -201,7 +193,7 @@ export default function SignupPage() {
             )}
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full shine-button" disabled={isLoading}>
                 {isLoading ? "Creating Account..." : "Create Account"}
             </Button>
             <div className="text-center text-sm">

@@ -24,9 +24,9 @@ const profileSchema = z.object({
     usn: z.string().min(1, "USN is required"),
     year: z.coerce.number().min(1, "Year is required").max(4, "Please enter a valid year"),
     bio: z.string().optional(),
-    linkedin: z.string().url("Please enter a valid LinkedIn URL").min(1, "LinkedIn profile is required"),
+    linkedin: z.string().url("Please enter a valid LinkedIn URL").optional().or(z.literal('')),
     github: z.string().url("Please enter a valid GitHub URL").optional().or(z.literal('')),
-    leetcode: z.string().url("Please enter a valid LeetCode URL").min(1, "LeetCode profile is required"),
+    leetcode: z.string().url("Please enter a valid LeetCode URL").optional().or(z.literal('')),
 });
 
 export default function ProfilePage() {
@@ -57,9 +57,9 @@ export default function ProfilePage() {
                 usn: currentUser.usn,
                 year: currentUser.year,
                 bio: currentUser.bio || "Passionate developer and problem solver. Actively seeking opportunities in software engineering.",
-                linkedin: currentUser.linkedin,
+                linkedin: currentUser.linkedin || "",
                 github: "", // Assuming github is not collected at signup
-                leetcode: currentUser.leetcode,
+                leetcode: currentUser.leetcode || "",
             });
         } else {
             // If no user, redirect to login, as they shouldn't be here.
