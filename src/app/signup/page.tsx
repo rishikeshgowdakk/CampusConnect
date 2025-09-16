@@ -31,10 +31,10 @@ export default function SignupPage() {
         <CardContent className="grid gap-4">
            <div className="grid grid-cols-2 gap-2">
             <Button variant="outline" asChild>
-                <a href="https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
+                <a href="https://github.com/login/oauth/authorize" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
             </Button>
             <Button variant="outline" asChild>
-                <a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=profile%20email" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
+                <a href="https://www.linkedin.com/oauth/v2/authorization" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
             </Button>
           </div>
           <div className="relative">
@@ -47,23 +47,39 @@ export default function SignupPage() {
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="first-name">First name</Label>
-              <Input id="first-name" placeholder="Max" required />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="last-name">Last name</Label>
-              <Input id="last-name" placeholder="Robinson" required />
-            </div>
+          <div className="grid gap-2">
+              <Label htmlFor="full-name">Full name</Label>
+              <Input id="full-name" placeholder="Max Robinson" required />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com" />
+            <Input id="email" type="email" placeholder="m@example.com" required/>
+          </div>
+           <div className="grid gap-2">
+            <Label htmlFor="usn">USN</Label>
+            <Input id="usn" type="text" placeholder="1CR21CS001" required/>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="year">Year</Label>
+              <Input id="year" type="number" placeholder="3" required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="semester">Semester</Label>
+              <Input id="semester" type="number" placeholder="6" required />
+            </div>
+          </div>
+           <div className="grid gap-2">
+            <Label htmlFor="linkedin">LinkedIn Profile</Label>
+            <Input id="linkedin" type="url" placeholder="https://linkedin.com/in/yourprofile" required/>
+          </div>
+           <div className="grid gap-2">
+            <Label htmlFor="leetcode">LeetCode Profile</Label>
+            <Input id="leetcode" type="url" placeholder="https://leetcode.com/yourusername" required/>
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" />
+            <Input id="password" type="password" required/>
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
