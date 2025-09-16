@@ -30,6 +30,7 @@ import { Logo } from "@/components/icons";
 import { UserNav } from "@/components/user-nav";
 import Chatbot from "@/components/chatbot";
 import React from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const allNavItems = [
   { href: "/dashboard", icon: <LayoutDashboard />, label: "Dashboard", role: ['student', 'faculty'] },
@@ -84,8 +85,11 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
             <div className="flex-1">
               {/* Could add breadcrumbs or page title here */}
             </div>
-            <div className="hidden md:block">
-              <UserNav />
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <div className="hidden md:block">
+                <UserNav />
+              </div>
             </div>
           </div>
         </header>

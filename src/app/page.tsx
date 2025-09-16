@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { Logo } from "@/components/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import React, { useEffect, useRef, useState } from 'react';
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const features = [
   {
@@ -130,7 +131,8 @@ export default function Home() {
             <Logo className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline text-xl">CampusConnect</span>
           </Link>
-          <div className="flex flex-1 items-center justify-end space-x-4">
+          <div className="flex flex-1 items-center justify-end space-x-2">
+            <ThemeToggle />
             <nav className="flex items-center space-x-1">
               <Button 
                 className="shine-button" 
