@@ -77,7 +77,6 @@ export default function LoginPage() {
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" placeholder="example@gmail.com" />
-            <p className="text-xs text-muted-foreground">Hint: Use an email with `new` in it to test redirection.</p>
           </div>
           <div className="grid gap-2">
             <div className="flex items-center">
