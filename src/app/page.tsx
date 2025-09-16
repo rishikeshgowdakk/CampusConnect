@@ -22,7 +22,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import React, { useEffect, useRef, useState } from 'react';
 import { ThemeToggle } from "@/components/theme-toggle";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { GoogleIcon } from "@/components/icons";
 
 const features = [
   {
@@ -332,7 +331,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
