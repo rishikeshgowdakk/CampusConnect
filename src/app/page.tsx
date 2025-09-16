@@ -263,7 +263,7 @@ export default function Home() {
 
       </main>
 
-      <footer className="py-12 md:py-16 border-t border-border/40 bg-secondary/30">
+      <footer className="py-12 md:py-16 border-t border-border/40 bg-secondary/30 scroll-animate">
         <div className="container grid gap-8 md:grid-cols-5">
             <div className="md:col-span-2">
                 <Link href="/" className="flex items-center space-x-2 mb-4">
