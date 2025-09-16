@@ -61,7 +61,7 @@ export default function LoginPage() {
             });
             setIsLoading(false);
         }
-    }, 500);
+    }, 100);
   };
 
   const renderLoginForm = (currentRole: "student" | "faculty") => (
@@ -117,7 +117,7 @@ export default function LoginPage() {
             </div>
             </div>
         )}
-      <Card className="w-full max-w-md mx-auto shadow-xl">
+      <Card className="w-full max-w-md mx-auto shadow-xl animate-in fade-in-0 slide-in-from-bottom-10 duration-500">
         <CardHeader className="space-y-1 text-center">
           <Link href="/" className="flex items-center justify-center space-x-2 mb-4">
             <Logo className="h-8 w-8 text-primary" />

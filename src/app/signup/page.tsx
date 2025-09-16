@@ -97,8 +97,8 @@ export default function SignupPage() {
                 usn: data.usn as string,
                 year: Number(data.year),
                 semester: Number(data.semester),
-                linkedin: data.linkedin as string || "",
-                leetcode: data.leetcode as string || "",
+                linkedin: data.linkedin as string,
+                leetcode: data.leetcode as string,
             });
             toast({
                 title: "Account Created!",
@@ -114,7 +114,7 @@ export default function SignupPage() {
         } finally {
             setIsLoading(false);
         }
-    }, 500);
+    }, 100);
   }
 
   return (

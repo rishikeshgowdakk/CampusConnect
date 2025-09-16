@@ -66,7 +66,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       {isLoading && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm animate-in fade-in-0">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm animate-in fade-in-0 duration-300">
           <div className="flex flex-col items-center gap-4">
             <Logo className="h-16 w-16 text-primary animate-pulse-grow" />
             <p className="text-muted-foreground">Loading...</p>
@@ -84,7 +84,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             {navItems.map((item) => (
               <SidebarMenuItem key={item.href} onClick={() => handleLinkClick(item.href)}>
-                <Link href={`${item.href}?role=${role}`} passHref>
+                <Link href={`${item.href}?role=${role}`} passHref prefetch>
                   <SidebarMenuButton tooltip={item.label} isActive={pathname === item.href}>
                     {item.icon}
                     <span>{item.label}</span>
