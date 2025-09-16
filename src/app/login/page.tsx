@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GoogleIcon, GithubIcon, LinkedinIcon, Logo } from "@/components/icons";
+import { GithubIcon, LinkedinIcon, Logo } from "@/components/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -49,10 +49,7 @@ export default function LoginPage() {
     <>
       {currentRole === 'student' && (
         <>
-            <div className="grid grid-cols-3 gap-2">
-                <Button variant="outline">
-                    <GoogleIcon className="h-4 w-4" />
-                </Button>
+            <div className="grid grid-cols-2 gap-2">
                 <Button variant="outline">
                     <GithubIcon className="h-4 w-4" />
                 </Button>
