@@ -8,6 +8,12 @@
       "imageHint": "university campus"
     },
     {
+      "id": "hero-graduation",
+      "description": "Students in graduation gowns throwing their caps in the air",
+      "imageUrl": "https://picsum.photos/seed/graduation/1920/1080",
+      "imageHint": "graduation students"
+    },
+    {
       "id": "feature-placements",
       "description": "Students collaborating on a project",
       "imageUrl": "https://picsum.photos/seed/2/600/400",
@@ -33,3 +39,5 @@
     }
   ]
 }
+
+    
