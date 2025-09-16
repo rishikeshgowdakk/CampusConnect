@@ -11,7 +11,6 @@ import {
   Bot,
   Star,
   Zap,
-  Loader2,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -85,7 +84,7 @@ export default function Home() {
     setLoading(id);
     setTimeout(() => {
       router.push(path);
-    }, 1000);
+    }, 1500); // Increased timeout for the animation to be visible
   };
 
   useEffect(() => {
@@ -117,6 +116,14 @@ export default function Home() {
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
+      {loading && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm animate-in fade-in-0">
+          <div className="flex flex-col items-center gap-4">
+             <Logo className="h-16 w-16 text-primary animate-pulse-grow" />
+             <p className="text-muted-foreground">Connecting you...</p>
+          </div>
+        </div>
+      )}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -130,7 +137,7 @@ export default function Home() {
                 onClick={() => handleLinkClick('/login', 'login')}
                 disabled={!!loading}
               >
-                {loading === 'login' ? <Loader2 className="animate-spin" /> : 'Login'}
+                Login
               </Button>
             </nav>
           </div>
@@ -153,7 +160,7 @@ export default function Home() {
                 onClick={() => handleLinkClick('/signup', 'get-started')}
                 disabled={!!loading}
               >
-                {loading === 'get-started' ? <Loader2 className="animate-spin" /> : 'Get Started'}
+                Get Started
               </Button>
               <Button asChild variant="outline" size="lg" className="shine-button">
                 <Link href="#features">Explore Features</Link>
@@ -178,7 +185,7 @@ export default function Home() {
                         onClick={() => handleLinkClick('/placements', 'start-now')}
                         disabled={!!loading}
                       >
-                         {loading === 'start-now' ? <Loader2 className="animate-spin" /> : 'Start Now'}
+                         Start Now
                       </Button>
                 </div>
             </div>
