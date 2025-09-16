@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Logo } from "@/components/icons";
+import { GithubIcon, LinkedinIcon, Logo, TwitterIcon } from "@/components/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import React, { useEffect, useRef, useState } from 'react';
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -85,7 +86,7 @@ export default function Home() {
     setLoading(id);
     setTimeout(() => {
       router.push(path);
-    }, 500);
+    }, 250);
   };
 
   useEffect(() => {
@@ -254,16 +255,61 @@ export default function Home() {
 
       </main>
 
-      <footer className="py-6 md:px-8 md:py-0 border-t border-border/40 bg-secondary/30">
-        <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-          <div className="flex items-center gap-4">
-            <Link href="#features" className="text-sm text-muted-foreground hover:text-primary transition-colors">Features</Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms & Conditions</Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
-          </div>
-          <p className="text-center text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} CampusConnect. All Rights Reserved.
-          </p>
+      <footer className="py-12 md:py-16 border-t border-border/40 bg-secondary/30">
+        <div className="container grid gap-8 md:grid-cols-5">
+            <div className="md:col-span-2">
+                <Link href="/" className="flex items-center space-x-2 mb-4">
+                    <Logo className="h-8 w-8 text-primary" />
+                    <span className="font-bold text-2xl font-headline">CampusConnect</span>
+                </Link>
+                <p className="text-muted-foreground max-w-sm mb-4">
+                    Bringing campus communities together through innovative digital experiences and seamless collaboration.
+                </p>
+                <div className="flex space-x-2">
+                    <Button variant="ghost" size="icon" asChild>
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><TwitterIcon className="h-5 w-5 text-muted-foreground hover:text-foreground" /></a>
+                    </Button>
+                    <Button variant="ghost" size="icon" asChild>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><LinkedinIcon className="h-5 w-5 text-muted-foreground hover:text-foreground" /></a>
+                    </Button>
+                     <Button variant="ghost" size="icon" asChild>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer"><GithubIcon className="h-5 w-5 text-muted-foreground hover:text-foreground" /></a>
+                    </Button>
+                </div>
+            </div>
+            <div>
+                <h4 className="font-semibold font-headline mb-4">Platform</h4>
+                <ul className="space-y-3">
+                    <li><Link href="/forum" className="text-muted-foreground hover:text-primary transition-colors">Discussion Forums</Link></li>
+                    <li><Link href="/resources" className="text-muted-foreground hover:text-primary transition-colors">Resource Hub</Link></li>
+                    <li><Link href="/placements" className="text-muted-foreground hover:text-primary transition-colors">Placement Corner</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Alumni Connect</Link></li>
+                    <li><Link href="/events" className="text-muted-foreground hover:text-primary transition-colors">Events</Link></li>
+                </ul>
+            </div>
+             <div>
+                <h4 className="font-semibold font-headline mb-4">Support</h4>
+                <ul className="space-y-3">
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Help Center</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Technical Support</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">System Status</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Feedback</Link></li>
+                </ul>
+            </div>
+             <div>
+                <h4 className="font-semibold font-headline mb-4">Resources</h4>
+                <ul className="space-y-3">
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">User Guide</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">API Documentation</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
+                    <li><Link href="#" className="text-muted-foreground hover:text-primary transition-colors">Community Guidelines</Link></li>
+                </ul>
+            </div>
+        </div>
+        <div className="container mt-8 pt-8 border-t border-border/40 text-center text-sm text-muted-foreground">
+             &copy; {new Date().getFullYear()} CampusConnect. All Rights Reserved.
         </div>
       </footer>
     </div>
