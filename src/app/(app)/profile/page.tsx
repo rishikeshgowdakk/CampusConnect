@@ -173,7 +173,7 @@ export default function ProfilePage() {
                                     <FormItem>
                                         <FormLabel>USN (University Seat Number)</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="e.g., 1CR21CS001" {...field} />
+                                            <Input placeholder="e.g., 1CR21CS001" {...field} onChange={(e) => field.onChange(e.target.value.toUpperCase())} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

@@ -27,6 +27,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState('');
   const [strength, setStrength] = useState({ score: 0, label: '', color: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [usn, setUsn] = useState('');
 
   const checkPasswordStrength = (pass: string) => {
     let score = 0;
@@ -159,7 +160,7 @@ export default function SignupPage() {
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="usn">USN</Label>
-                <Input name="usn" id="usn" type="text" placeholder="1CR21CS001" required/>
+                <Input name="usn" id="usn" type="text" placeholder="1CR21CS001" required value={usn} onChange={(e) => setUsn(e.target.value.toUpperCase())}/>
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
