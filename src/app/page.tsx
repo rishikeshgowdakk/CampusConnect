@@ -84,7 +84,7 @@ export default function Home() {
     setLoading(id);
     setTimeout(() => {
       router.push(path);
-    }, 500); // Reduced timeout for a faster transition
+    }, 500);
   };
 
   useEffect(() => {
@@ -146,7 +146,7 @@ export default function Home() {
 
       <main className="flex-1 [perspective:2000px]">
         <section className="container grid items-center justify-center gap-6 pb-8 pt-12 md:py-20 text-center">
-          <div className="flex flex-col items-center gap-4 text-center scroll-animate">
+          <div className="flex flex-col items-center gap-4 text-center scroll-animate in-view">
             <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline">
               The All-In-One Platform for Your Campus Life
             </h1>
@@ -182,7 +182,7 @@ export default function Home() {
                      <Button 
                         size="lg" 
                         className="shine-button"
-                        onClick={() => handleLinkClick('/placements', 'start-now')}
+                        onClick={() => handleLinkClick('/login', 'start-now')}
                         disabled={!!loading}
                       >
                          Start Now
