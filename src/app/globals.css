@@ -41,42 +41,39 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('https://picsum.photos/seed/campusbg/1920/1080');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.1;
+    background: radial-gradient(ellipse at bottom, hsl(var(--primary) / 0.1), transparent 60%);
+    opacity: 0.8;
     z-index: -1;
     pointer-events: none;
-    animation: fade-in 3s ease-out forwards;
   }
 }
 
 @layer utilities {
-  .fade-in {
-    animation: fade-in 1s ease-out forwards;
+  .animate-in {
+    animation-name: animate-in;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-fill-mode: both;
   }
 
-  .fade-in-up {
-    animation: fade-in-up 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+  .scroll-animate {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(100px) rotateX(-30deg) scale(0.9);
+    transition: opacity 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000), transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
-  .fade-in-persp {
-    animation: fade-in-perspective 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
-    opacity: 0;
+  .in-view {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg) scale(1);
   }
+
+  .stagger-1 { transition-delay: 150ms; }
+  .stagger-2 { transition-delay: 300ms; }
+  .stagger-3 { transition-delay: 450ms; }
+  .stagger-4 { transition-delay: 600ms; }
+  .stagger-5 { transition-delay: 750ms; }
   
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fade-in-up {
+  @keyframes animate-in {
     from {
       opacity: 0;
       transform: translateY(40px);
@@ -87,23 +84,6 @@
     }
   }
 
-  @keyframes fade-in-perspective {
-    from {
-      opacity: 0;
-      transform: translateY(60px) rotateX(-20deg) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) rotateX(0deg) scale(1);
-    }
-  }
-
-  .stagger-1 { animation-delay: 200ms; }
-  .stagger-2 { animation-delay: 400ms; }
-  .stagger-3 { animation-delay: 600ms; }
-  .stagger-4 { animation-delay: 800ms; }
-  .stagger-5 { animation-delay: 1000ms; }
-  
   .sparkle-button {
     position: relative;
     overflow: hidden;

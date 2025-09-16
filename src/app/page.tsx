@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
@@ -14,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Logo } from "@/components/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import React, { useEffect, useRef } from 'react';
 
 const features = [
   {
@@ -73,6 +76,34 @@ const testimonials = [
 ]
 
 export default function Home() {
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    const elements = document.querySelectorAll('.scroll-animate');
+
+    elements.forEach(el => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => {
+      elements.forEach(el => {
+        const observer = observers.find(o => o.root === null);
+        if (observer) {
+          observer.unobserve(el);
+        }
+      });
+    };
+  }, []);
+
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -94,13 +125,13 @@ export default function Home() {
       <main className="flex-1">
         <section className="container grid items-center justify-center gap-6 pb-8 pt-12 md:py-20 text-center">
           <div className="flex flex-col items-center gap-4 text-center">
-            <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline fade-in-up">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl lg:text-7xl font-headline animate-in">
               The All-In-One Platform for Your Campus Life
             </h1>
-            <p className="max-w-[700px] text-lg text-muted-foreground fade-in-up stagger-1">
+            <p className="max-w-[700px] text-lg text-muted-foreground animate-in stagger-1">
               Connect, collaborate, and conquer your college journey. From placements to discussions, we've got you covered.
             </p>
-            <div className="flex gap-4 fade-in-up stagger-2">
+            <div className="flex gap-4 animate-in stagger-2">
                <Button asChild size="lg" className="sparkle-button">
                 <Link href="/signup">Get Started</Link>
               </Button>
@@ -111,9 +142,9 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="quick-prep" className="bg-secondary/50 py-20 my-12 fade-in-persp">
-            <div className="container text-center">
-                <div className="mx-auto max-w-3xl">
+        <section id="quick-prep" className="bg-secondary/50 py-20 my-12">
+            <div className="container text-center [perspective:1000px]">
+                <div className="mx-auto max-w-3xl scroll-animate">
                     <div className="inline-block bg-primary text-primary-foreground rounded-full p-3 mb-4 animate-pulse">
                         <Zap className="h-8 w-8" />
                     </div>
@@ -129,15 +160,17 @@ export default function Home() {
         </section>
 
         <section id="features" className="container my-20">
-          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 fade-in-persp">
-            <h2 className="text-3xl font-bold tracking-tight font-headline">Everything You Need, in One Place</h2>
-            <p className="text-muted-foreground max-w-2xl">
-              CampusConnect integrates every aspect of your academic and social life into a single, seamless experience.
-            </p>
+          <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 [perspective:1000px]">
+            <div className="scroll-animate">
+              <h2 className="text-3xl font-bold tracking-tight font-headline">Everything You Need, in One Place</h2>
+              <p className="text-muted-foreground max-w-2xl">
+                CampusConnect integrates every aspect of your academic and social life into a single, seamless experience.
+              </p>
+            </div>
           </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 [perspective:1000px]">
             {features.map((feature, i) => (
-              <Card key={feature.title} className={`group flex flex-col items-center text-center p-6 transition-all duration-500 fade-in-persp stagger-${(i % 3) + 1} hover:scale-105`}>
+              <Card key={feature.title} className={`group flex flex-col items-center text-center p-6 scroll-animate stagger-${(i % 3) + 1}`}>
                  <div className="transition-all duration-500 group-hover:scale-110">
                     <CardHeader className="p-0 mb-4">
                       <div className="bg-primary/10 text-primary p-4 rounded-full transition-transform duration-300 group-hover:scale-110">
@@ -156,7 +189,7 @@ export default function Home() {
         
         <section id="testimonials" className="my-20 py-24 bg-secondary/50">
             <div className="container [perspective:1000px]">
-                <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 fade-in-persp">
+                <div className="mx-auto flex flex-col items-center gap-4 text-center mb-12 scroll-animate">
                     <h2 className="text-3xl font-bold tracking-tight font-headline">From Our Students</h2>
                     <p className="text-muted-foreground max-w-2xl">
                         See how CampusConnect is helping students achieve their goals.
@@ -164,7 +197,7 @@ export default function Home() {
                 </div>
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {testimonials.map((testimonial, i) => (
-                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center transform transition-all duration-700 hover:scale-105 hover:shadow-xl fade-in-persp stagger-${i+1} [transform-style:preserve-3d] hover:[transform:rotateY(0deg)] [transform:rotateY(-15deg)]`}>
+                         <Card key={testimonial.name} className={`bg-card p-6 flex flex-col justify-center items-center text-center scroll-animate stagger-${i+1}`}>
                             <CardHeader className="p-0 items-center">
                                 <Avatar className="w-20 h-20 mb-4 border-2 border-primary">
                                     <AvatarImage src={testimonial.avatar} data-ai-hint={testimonial.avatarHint}/>
