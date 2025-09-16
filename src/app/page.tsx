@@ -83,7 +83,7 @@ export default function Home() {
           </Link>
           <div className="flex flex-1 items-center justify-end space-x-4">
             <nav className="flex items-center space-x-1">
-              <Button asChild>
+              <Button asChild className="sparkle-button">
                 <Link href="/login">Login</Link>
               </Button>
             </nav>
