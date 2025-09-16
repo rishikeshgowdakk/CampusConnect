@@ -132,10 +132,10 @@ export default function SignupPage() {
         <form onSubmit={handleSignup}>
             <CardContent className="grid gap-4">
             <div className="grid grid-cols-2 gap-2">
-                <Button variant="outline" type="button" disabled>
+                <Button variant="outline" type="button">
                     <GithubIcon className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" type="button" disabled>
+                <Button variant="outline" type="button">
                     <LinkedinIcon className="h-4 w-4" />
                 </Button>
             </div>
