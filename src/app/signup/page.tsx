@@ -81,11 +81,11 @@ export default function SignupPage() {
         </CardHeader>
         <CardContent className="grid gap-4">
            <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline" asChild>
-                <a href="https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
+            <Button variant="outline" disabled>
+                <GithubIcon className="h-4 w-4" />
             </Button>
-            <Button variant="outline" asChild>
-                <a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=profile%20email" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
+            <Button variant="outline" disabled>
+                <LinkedinIcon className="h-4 w-4" />
             </Button>
           </div>
           <div className="relative">
