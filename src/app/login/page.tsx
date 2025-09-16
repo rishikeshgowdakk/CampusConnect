@@ -68,10 +68,10 @@ export default function LoginPage() {
       {currentRole === 'student' && (
         <>
             <div className="grid grid-cols-2 gap-2">
-                <Button variant="outline">
+                <Button variant="outline" className="transition-transform hover:scale-105" type="button">
                     <GithubIcon className="h-4 w-4" />
                 </Button>
-                <Button variant="outline">
+                <Button variant="outline" className="transition-transform hover:scale-105" type="button">
                     <LinkedinIcon className="h-4 w-4" />
                 </Button>
             </div>
@@ -89,7 +89,7 @@ export default function LoginPage() {
       )}
       <div className="grid gap-2">
         <Label htmlFor={`${currentRole}-email`}>Email</Label>
-        <Input id={`${currentRole}-email`} type="email" placeholder="example@gmail.com" required />
+        <Input id={`${currentRole}-email`} type="email" placeholder="example@gmail.com" required className="transition-all focus:scale-[1.02] focus:shadow-lg" />
       </div>
       <div className="grid gap-2">
         <div className="flex items-center">
@@ -101,13 +101,13 @@ export default function LoginPage() {
             Forgot your password?
           </Link>
         </div>
-        <Input id={`${currentRole}-password`} type="password" required />
+        <Input id={`${currentRole}-password`} type="password" required className="transition-all focus:scale-[1.02] focus:shadow-lg" />
       </div>
     </>
   );
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+    <div className="flex min-h-screen items-center justify-center bg-background p-4 animate-in">
       <Card className="w-full max-w-md mx-auto shadow-xl">
         <CardHeader className="space-y-1 text-center">
           <Link href="/" className="flex items-center justify-center space-x-2 mb-4">
@@ -125,15 +125,15 @@ export default function LoginPage() {
               <TabsTrigger value="student">Student</TabsTrigger>
               <TabsTrigger value="faculty">Faculty</TabsTrigger>
             </TabsList>
-            <TabsContent value="student" className="grid gap-4">
+            <TabsContent value="student" className="grid gap-4 animate-in">
               {renderLoginForm("student")}
             </TabsContent>
-            <TabsContent value="faculty" className="grid gap-4">
+            <TabsContent value="faculty" className="grid gap-4 animate-in">
               {renderLoginForm("faculty")}
             </TabsContent>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
-            <Button className="w-full" onClick={handleLogin} disabled={isLoading}>
+            <Button className="w-full shine-button" onClick={handleLogin} disabled={isLoading}>
               {isLoading ? 'Logging in...' : `Login as ${role.charAt(0).toUpperCase() + role.slice(1)}`}
             </Button>
             {role === 'student' && (
