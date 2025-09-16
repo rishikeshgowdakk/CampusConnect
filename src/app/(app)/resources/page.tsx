@@ -1,7 +1,11 @@
+
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Upload, Download, Edit, Trash } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 const resources = [
   { name: "Data Structures & Algorithms Notes", type: "PDF", uploader: "Jane Smith", date: "2024-05-20" },
@@ -12,6 +16,9 @@ const resources = [
 ];
 
 export default function ResourcesPage() {
+    const searchParams = useSearchParams();
+    const role = searchParams.get('role') || 'student';
+
     return (
         <div className="space-y-8">
             <div className="flex items-center justify-between">
@@ -56,14 +63,18 @@ export default function ResourcesPage() {
                                                 <Download className="mr-2 h-4 w-4"/>
                                                 Download
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem>
-                                                <Edit className="mr-2 h-4 w-4"/>
-                                                Edit
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem className="text-destructive">
-                                                <Trash className="mr-2 h-4 w-4"/>
-                                                Delete
-                                            </DropdownMenuItem>
+                                            {(role === 'faculty' || resource.uploader === 'Current User') && (
+                                                <>
+                                                    <DropdownMenuItem>
+                                                        <Edit className="mr-2 h-4 w-4"/>
+                                                        Edit
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem className="text-destructive">
+                                                        <Trash className="mr-2 h-4 w-4"/>
+                                                        Delete
+                                                    </DropdownMenuItem>
+                                                </>
+                                            )}
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </TableCell>

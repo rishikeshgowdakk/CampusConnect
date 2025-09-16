@@ -1,3 +1,6 @@
+
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -6,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Paperclip } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 const announcements = [
     {
@@ -35,6 +39,9 @@ const announcements = [
 ]
 
 export default function AnnouncementsPage() {
+    const searchParams = useSearchParams();
+    const role = searchParams.get('role') || 'student';
+
     return (
         <div className="space-y-8">
             <div className="flex items-center justify-between">
@@ -42,42 +49,44 @@ export default function AnnouncementsPage() {
                     <h1 className="text-3xl font-bold font-headline">Announcements</h1>
                     <p className="text-muted-foreground">Latest updates from faculty and departments.</p>
                 </div>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button>New Announcement</Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                        <DialogTitle>Create Announcement</DialogTitle>
-                        <DialogDescription>
-                            Compose a new announcement. It will be notified to all students.
-                        </DialogDescription>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="title" className="text-right">
-                            Title
-                            </Label>
-                            <Input id="title" placeholder="E.g., Exam Schedule" className="col-span-3" />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="content" className="text-right">
-                            Content
-                            </Label>
-                            <Textarea id="content" placeholder="Type your message here." className="col-span-3" />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="attachments" className="text-right">
-                            Attachments
-                            </Label>
-                            <Input id="attachments" type="file" multiple className="col-span-3"/>
-                        </div>
-                        </div>
-                        <DialogFooter>
-                        <Button type="submit">Post Announcement</Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
+                {role === 'faculty' && (
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button>New Announcement</Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                            <DialogTitle>Create Announcement</DialogTitle>
+                            <DialogDescription>
+                                Compose a new announcement. It will be notified to all students.
+                            </DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="title" className="text-right">
+                                Title
+                                </Label>
+                                <Input id="title" placeholder="E.g., Exam Schedule" className="col-span-3" />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="content" className="text-right">
+                                Content
+                                </Label>
+                                <Textarea id="content" placeholder="Type your message here." className="col-span-3" />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="attachments" className="text-right">
+                                Attachments
+                                </Label>
+                                <Input id="attachments" type="file" multiple className="col-span-3"/>
+                            </div>
+                            </div>
+                            <DialogFooter>
+                            <Button type="submit">Post Announcement</Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                )}
             </div>
             
             <div className="space-y-6">

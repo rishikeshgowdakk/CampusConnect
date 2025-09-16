@@ -1,4 +1,8 @@
+
+'use client';
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   Briefcase,
   Calendar,
@@ -7,6 +11,7 @@ import {
   Megaphone,
   MessageSquare,
   User,
+  Shield,
 } from "lucide-react";
 
 import {
@@ -24,22 +29,25 @@ import {
 import { Logo } from "@/components/icons";
 import { UserNav } from "@/components/user-nav";
 import Chatbot from "@/components/chatbot";
+import React from "react";
 
-const navItems = [
-  { href: "/dashboard", icon: <LayoutDashboard />, label: "Dashboard" },
-  { href: "/profile", icon: <User />, label: "Profile" },
-  { href: "/placements", icon: <Briefcase />, label: "Placement Corner" },
-  { href: "/announcements", icon: <Megaphone />, label: "Announcements" },
-  { href: "/events", icon: <Calendar />, label: "Events" },
-  { href: "/forum", icon: <MessageSquare />, label: "Forum" },
-  { href: "/resources", icon: <FolderKanban />, label: "Resource Hub" },
+const allNavItems = [
+  { href: "/dashboard", icon: <LayoutDashboard />, label: "Dashboard", role: ['student', 'faculty'] },
+  { href: "/profile", icon: <User />, label: "Profile", role: ['student', 'faculty'] },
+  { href: "/placements", icon: <Briefcase />, label: "Placement Corner", role: ['student', 'faculty'] },
+  { href: "/announcements", icon: <Megaphone />, label: "Announcements", role: ['student', 'faculty'] },
+  { href: "/events", icon: <Calendar />, label: "Events", role: ['student', 'faculty'] },
+  { href: "/forum", icon: <MessageSquare />, label: "Forum", role: ['student', 'faculty'] },
+  { href: "/resources", icon: <FolderKanban />, label: "Resource Hub", role: ['student', 'faculty'] },
+  { href: "/admin", icon: <Shield />, label: "Admin Panel", role: ['faculty'] },
 ];
 
-export default function AppLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function AppLayoutContent({ children }: { children: React.ReactNode }) {
+  const searchParams = useSearchParams();
+  const role = searchParams.get('role') || 'student';
+
+  const navItems = allNavItems.filter(item => item.role.includes(role));
+
   return (
     <SidebarProvider>
       <Sidebar>
@@ -53,7 +61,7 @@ export default function AppLayout({
           <SidebarMenu>
             {navItems.map((item) => (
               <SidebarMenuItem key={item.href}>
-                <Link href={item.href} passHref>
+                <Link href={`${item.href}?role=${role}`} passHref>
                   <SidebarMenuButton tooltip={item.label}>
                     {item.icon}
                     <span>{item.label}</span>
@@ -86,4 +94,17 @@ export default function AppLayout({
       </SidebarInset>
     </SidebarProvider>
   );
+}
+
+
+export default function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <AppLayoutContent>{children}</AppLayoutContent>
+    </React.Suspense>
+  )
 }

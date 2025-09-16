@@ -1,7 +1,12 @@
+
+'use client';
+    
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { FileText, Link as LinkIcon, Download } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const interviewExperiences = [
     { company: "TechCorp", role: "Software Engineer Intern", date: "2024-05-15", author: "Alex Doe" },
@@ -16,6 +21,9 @@ const docRepository = [
 ];
 
 export default function PlacementsPage() {
+    const searchParams = useSearchParams();
+    const role = searchParams.get('role') || 'student';
+    
     return (
         <div className="space-y-8">
             <div>
@@ -110,7 +118,7 @@ export default function PlacementsPage() {
                                 <CardTitle>Document Repository</CardTitle>
                                 <CardDescription>Find resume templates, referral links, and more.</CardDescription>
                             </div>
-                             <Button>Upload Document</Button>
+                             {role === 'faculty' && <Button>Upload Document</Button>}
                         </CardHeader>
                         <CardContent className="space-y-4">
                            {docRepository.map(doc => (

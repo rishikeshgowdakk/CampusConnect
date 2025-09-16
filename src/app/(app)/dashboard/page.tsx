@@ -1,34 +1,53 @@
+
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Briefcase, Calendar, MessageSquare } from "lucide-react";
+import { ArrowRight, Briefcase, Calendar, MessageSquare, Shield } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
-const quickLinks = [
+const allQuickLinks = [
     {
         title: "Placement Corner",
         description: "Explore roadmaps and interview experiences.",
         href: "/placements",
-        icon: <Briefcase className="h-6 w-6 text-primary" />
+        icon: <Briefcase className="h-6 w-6 text-primary" />,
+        role: ['student', 'faculty']
     },
     {
         title: "Upcoming Events",
         description: "Check out workshops and tech talks.",
         href: "/events",
-        icon: <Calendar className="h-6 w-6 text-primary" />
+        icon: <Calendar className="h-6 w-6 text-primary" />,
+        role: ['student', 'faculty']
     },
     {
         title: "Discussion Forum",
         description: "Join conversations and ask questions.",
         href: "/forum",
-        icon: <MessageSquare className="h-6 w-6 text-primary" />
+        icon: <MessageSquare className="h-6 w-6 text-primary" />,
+        role: ['student', 'faculty']
+    },
+    {
+        title: "Admin Panel",
+        description: "Manage students, content, and approvals.",
+        href: "/admin",
+        icon: <Shield className="h-6 w-6 text-primary" />,
+        role: ['faculty']
     }
-]
+];
 
 export default function DashboardPage() {
+    const searchParams = useSearchParams();
+    const role = searchParams.get('role') || 'student';
+    
+    const quickLinks = allQuickLinks.filter(link => link.role.includes(role));
+
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-bold font-headline">Welcome back, User!</h1>
+                <h1 className="text-3xl font-bold font-headline">Welcome back, {role === 'faculty' ? 'Faculty' : 'User'}!</h1>
                 <p className="text-muted-foreground">Here&apos;s a quick overview of what&apos;s happening on campus.</p>
             </div>
 
@@ -41,7 +60,7 @@ export default function DashboardPage() {
                                 <CardTitle className="text-lg font-semibold">{link.title}</CardTitle>
                             </div>
                             <Button variant="ghost" size="icon" asChild>
-                                <Link href={link.href}><ArrowRight className="h-4 w-4" /></Link>
+                                <Link href={`${link.href}?role=${role}`}><ArrowRight className="h-4 w-4" /></Link>
                             </Button>
                         </CardHeader>
                         <CardContent>
@@ -63,7 +82,7 @@ export default function DashboardPage() {
                                 <p className="text-sm text-muted-foreground">Posted by Faculty Admin - 2 hours ago</p>
                             </div>
                             <Button variant="outline" size="sm" asChild>
-                                <Link href="/announcements">View</Link>
+                                <Link href={`/announcements?role=${role}`}>View</Link>
                             </Button>
                         </li>
                          <li className="flex items-center justify-between">
@@ -72,7 +91,7 @@ export default function DashboardPage() {
                                 <p className="text-sm text-muted-foreground">Posted by HOD - 1 day ago</p>
                             </div>
                             <Button variant="outline" size="sm" asChild>
-                                <Link href="/announcements">View</Link>
+                                <Link href={`/announcements?role=${role}`}>View</Link>
                             </Button>
                         </li>
                     </ul>
