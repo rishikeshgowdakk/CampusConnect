@@ -1,5 +1,7 @@
 
 
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,8 +15,57 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GithubIcon, LinkedinIcon, Logo } from "@/components/icons";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Progress } from "@/components/ui/progress";
 
 export default function SignupPage() {
+  const [password, setPassword] = useState('');
+  const [strength, setStrength] = useState({ score: 0, label: '', color: '' });
+
+  const checkPasswordStrength = (pass: string) => {
+    let score = 0;
+    let label = '';
+    let color = '';
+
+    if (pass.length >= 8) score++;
+    if (/[A-Z]/.test(pass)) score++;
+    if (/[a-z]/.test(pass)) score++;
+    if (/[0-9]/.test(pass)) score++;
+    if (/[^A-Za-z0-9]/.test(pass)) score++;
+
+    switch (score) {
+      case 0:
+      case 1:
+      case 2:
+        label = 'Weak';
+        color = 'bg-red-500';
+        break;
+      case 3:
+        label = 'Medium';
+        color = 'bg-yellow-500';
+        break;
+      case 4:
+      case 5:
+        label = 'Strong';
+        color = 'bg-green-500';
+        break;
+      default:
+        label = '';
+        color = '';
+    }
+    
+    setStrength({ score, label, color });
+  };
+
+  useEffect(() => {
+    if(password){
+      checkPasswordStrength(password);
+    } else {
+      setStrength({ score: 0, label: '', color: '' });
+    }
+  }, [password]);
+
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md mx-auto shadow-xl">
@@ -31,10 +82,10 @@ export default function SignupPage() {
         <CardContent className="grid gap-4">
            <div className="grid grid-cols-2 gap-2">
             <Button variant="outline" asChild>
-                <a href="https://github.com/login/oauth/authorize" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
+                <a href="https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
             </Button>
             <Button variant="outline" asChild>
-                <a href="https://www.linkedin.com/oauth/v2/authorization" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
+                <a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=profile%20email" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
             </Button>
           </div>
           <div className="relative">
@@ -79,8 +130,22 @@ export default function SignupPage() {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required/>
+            <Input 
+              id="password" 
+              type="password" 
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
+          {password && (
+            <div className="space-y-2">
+              <Progress value={strength.score * 20} className="h-2 [&>div]:transition-all [&>div]:duration-300" />
+              <p className="text-xs text-muted-foreground">
+                Password strength: <span className={`font-bold ${strength.score <= 2 ? 'text-red-500' : strength.score === 3 ? 'text-yellow-500' : 'text-green-500'}`}>{strength.label}</span>
+              </p>
+            </div>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Button className="w-full" asChild>
