@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Briefcase, Calendar, MessageSquare, Shield } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { getCurrentUser, User } from "@/lib/mock-db";
+import React, { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const allQuickLinks = [
     {
@@ -41,13 +45,25 @@ const allQuickLinks = [
 export default function DashboardPage() {
     const searchParams = useSearchParams();
     const role = searchParams.get('role') || 'student';
+    const [user, setUser] = useState<User | null>(null);
     
+    useEffect(() => {
+        const currentUser = getCurrentUser();
+        setUser(currentUser);
+    }, [])
+
     const quickLinks = allQuickLinks.filter(link => link.role.includes(role));
+    
+    const welcomeMessage = () => {
+        if (role === 'faculty') return "Welcome back, Faculty!";
+        if (user) return `Welcome back, ${user.fullName.split(' ')[0]}!`;
+        return "Welcome back!";
+    }
 
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-bold font-headline">Welcome back, {role === 'faculty' ? 'Faculty' : 'User'}!</h1>
+                 <h1 className="text-3xl font-bold font-headline">{welcomeMessage()}</h1>
                 <p className="text-muted-foreground">Here&apos;s a quick overview of what&apos;s happening on campus.</p>
             </div>
 

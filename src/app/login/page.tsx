@@ -19,30 +19,48 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
+import { findUserByEmail, setCurrentUser } from "@/lib/mock-db";
 
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [role, setRole] = useState("student");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const emailInput = document.getElementById(`${role}-email`) as HTMLInputElement;
-    if (!emailInput) return;
-    const email = emailInput.value;
+    setIsLoading(true);
 
-    // This is a simulation. In a real app, you would make an API call
-    // to your backend to check if the user exists.
-    if (email.includes("new")) {
-      toast({
-        title: "Account not found",
-        description: "This email is not registered. Please create a new account.",
-        variant: "destructive",
-      });
-      router.push("/signup");
-    } else {
-      router.push(`/dashboard?role=${role}`);
-    }
+    const emailInput = document.getElementById(`${role}-email`) as HTMLInputElement;
+    const passwordInput = document.getElementById(`${role}-password`) as HTMLInputElement;
+    
+    if (!emailInput || !passwordInput) {
+        setIsLoading(false);
+        return;
+    };
+
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    setTimeout(() => {
+        const user = findUserByEmail(email);
+
+        if (user && user.password === password) {
+            setCurrentUser(user.id);
+            toast({
+                title: "Login Successful",
+                description: `Welcome back, ${user.fullName}!`,
+            });
+            router.push(`/dashboard?role=${role}`);
+        } else {
+            toast({
+                title: "Login Failed",
+                description: "Invalid email or password. Please try again.",
+                variant: "destructive",
+            });
+        }
+        setIsLoading(false);
+    }, 500);
   };
 
   const renderLoginForm = (currentRole: "student" | "faculty") => (
@@ -50,10 +68,10 @@ export default function LoginPage() {
       {currentRole === 'student' && (
         <>
             <div className="grid grid-cols-2 gap-2">
-                <Button variant="outline">
+                <Button variant="outline" disabled>
                     <GithubIcon className="h-4 w-4" />
                 </Button>
-                <Button variant="outline">
+                <Button variant="outline" disabled>
                     <LinkedinIcon className="h-4 w-4" />
                 </Button>
             </div>
@@ -71,7 +89,7 @@ export default function LoginPage() {
       )}
       <div className="grid gap-2">
         <Label htmlFor={`${currentRole}-email`}>Email</Label>
-        <Input id={`${currentRole}-email`} type="email" placeholder="example@gmail.com" />
+        <Input id={`${currentRole}-email`} type="email" placeholder="example@gmail.com" required />
       </div>
       <div className="grid gap-2">
         <div className="flex items-center">
@@ -83,7 +101,7 @@ export default function LoginPage() {
             Forgot your password?
           </Link>
         </div>
-        <Input id={`${currentRole}-password`} type="password" />
+        <Input id={`${currentRole}-password`} type="password" required />
       </div>
     </>
   );
@@ -115,8 +133,8 @@ export default function LoginPage() {
             </TabsContent>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
-            <Button className="w-full" onClick={handleLogin}>
-              Login as {role.charAt(0).toUpperCase() + role.slice(1)}
+            <Button className="w-full" onClick={handleLogin} disabled={isLoading}>
+              {isLoading ? 'Logging in...' : `Login as ${role.charAt(0).toUpperCase() + role.slice(1)}`}
             </Button>
             {role === 'student' && (
               <div className="text-center text-sm">
@@ -132,3 +150,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

@@ -17,37 +17,46 @@ import { GithubIcon, LinkedinIcon, Logo } from "@/components/icons";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { createUser } from "@/lib/mock-db";
 
 export default function SignupPage() {
+  const { toast } = useToast();
+  const router = useRouter();
   const [password, setPassword] = useState('');
   const [strength, setStrength] = useState({ score: 0, label: '', color: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   const checkPasswordStrength = (pass: string) => {
     let score = 0;
-    let label = '';
-    let color = '';
-
+    if (!pass) {
+        setStrength({ score: 0, label: '', color: '' });
+        return;
+    }
     if (pass.length >= 8) score++;
     if (/[A-Z]/.test(pass)) score++;
     if (/[a-z]/.test(pass)) score++;
     if (/[0-9]/.test(pass)) score++;
     if (/[^A-Za-z0-9]/.test(pass)) score++;
 
+    let label = '';
+    let color = '';
     switch (score) {
       case 0:
       case 1:
       case 2:
         label = 'Weak';
-        color = 'bg-red-500';
+        color = 'text-red-500';
         break;
       case 3:
         label = 'Medium';
-        color = 'bg-yellow-500';
+        color = 'text-yellow-500';
         break;
       case 4:
       case 5:
         label = 'Strong';
-        color = 'bg-green-500';
+        color = 'text-green-500';
         break;
       default:
         label = '';
@@ -56,15 +65,56 @@ export default function SignupPage() {
     
     setStrength({ score, label, color });
   };
-
+  
   useEffect(() => {
-    if(password){
-      checkPasswordStrength(password);
-    } else {
-      setStrength({ score: 0, label: '', color: '' });
-    }
+    checkPasswordStrength(password);
   }, [password]);
 
+  const handleSignup = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    if (strength.score < 3) {
+      toast({
+        title: "Weak Password",
+        description: "Please choose a stronger password.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+    
+    setTimeout(() => {
+        try {
+            createUser({
+                fullName: data.fullName as string,
+                email: data.email as string,
+                password: data.password as string,
+                usn: data.usn as string,
+                year: Number(data.year),
+                semester: Number(data.semester),
+                linkedin: data.linkedin as string,
+                leetcode: data.leetcode as string,
+            });
+            toast({
+                title: "Account Created!",
+                description: "You can now log in with your new account.",
+            });
+            router.push('/login');
+        } catch (error: any) {
+            toast({
+                title: "Signup Failed",
+                description: error.message || "An unexpected error occurred.",
+                variant: "destructive",
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    }, 500);
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -79,85 +129,88 @@ export default function SignupPage() {
             Enter your details below to get started
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4">
-           <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline">
-                <GithubIcon className="h-4 w-4" />
-            </Button>
-            <Button variant="outline">
-                <LinkedinIcon className="h-4 w-4" />
-            </Button>
-          </div>
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
+        <form onSubmit={handleSignup}>
+            <CardContent className="grid gap-4">
+            <div className="grid grid-cols-2 gap-2">
+                <Button variant="outline" type="button" disabled>
+                    <GithubIcon className="h-4 w-4" />
+                </Button>
+                <Button variant="outline" type="button" disabled>
+                    <LinkedinIcon className="h-4 w-4" />
+                </Button>
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">
-                Or continue with
-              </span>
-            </div>
-          </div>
-          <div className="grid gap-2">
-              <Label htmlFor="full-name">Full name</Label>
-              <Input id="full-name" placeholder="Max Robinson" required />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com" required/>
-          </div>
-           <div className="grid gap-2">
-            <Label htmlFor="usn">USN</Label>
-            <Input id="usn" type="text" placeholder="1CR21CS001" required/>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="year">Year</Label>
-              <Input id="year" type="number" placeholder="3" required />
+            <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">
+                    Or continue with
+                </span>
+                </div>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="semester">Semester</Label>
-              <Input id="semester" type="number" placeholder="6" required />
+                <Label htmlFor="fullName">Full name</Label>
+                <Input name="fullName" id="fullName" placeholder="Max Robinson" required />
             </div>
-          </div>
-           <div className="grid gap-2">
-            <Label htmlFor="linkedin">LinkedIn Profile</Label>
-            <Input id="linkedin" type="url" placeholder="https://linkedin.com/in/yourprofile" required/>
-          </div>
-           <div className="grid gap-2">
-            <Label htmlFor="leetcode">LeetCode Profile</Label>
-            <Input id="leetcode" type="url" placeholder="https://leetcode.com/yourusername" required/>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input 
-              id="password" 
-              type="password" 
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          {password && (
-            <div className="space-y-2">
-              <Progress value={strength.score * 20} className="h-2 [&>div]:transition-all [&>div]:duration-300" />
-              <p className="text-xs text-muted-foreground">
-                Password strength: <span className={`font-bold ${strength.score <= 2 ? 'text-red-500' : strength.score === 3 ? 'text-yellow-500' : 'text-green-500'}`}>{strength.label}</span>
-              </p>
+            <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input name="email" id="email" type="email" placeholder="m@example.com" required/>
             </div>
-          )}
-        </CardContent>
-        <CardFooter className="flex flex-col gap-4">
-          <Button className="w-full" asChild>
-            <Link href="/profile">Create Account</Link>
-          </Button>
-          <div className="text-center text-sm">
-            Already have an account?{" "}
-            <Link href="/login" className="underline">
-              Login
-            </Link>
-          </div>
-        </CardFooter>
+            <div className="grid gap-2">
+                <Label htmlFor="usn">USN</Label>
+                <Input name="usn" id="usn" type="text" placeholder="1CR21CS001" required/>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                <Label htmlFor="year">Year</Label>
+                <Input name="year" id="year" type="number" placeholder="3" required />
+                </div>
+                <div className="grid gap-2">
+                <Label htmlFor="semester">Semester</Label>
+                <Input name="semester" id="semester" type="number" placeholder="6" required />
+                </div>
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="linkedin">LinkedIn Profile</Label>
+                <Input name="linkedin" id="linkedin" type="url" placeholder="https://linkedin.com/in/yourprofile" required/>
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="leetcode">LeetCode Profile</Label>
+                <Input name="leetcode" id="leetcode" type="url" placeholder="https://leetcode.com/yourusername" required/>
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="password">Password</Label>
+                <Input 
+                name="password"
+                id="password" 
+                type="password" 
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
+            {password && (
+                <div className="space-y-2">
+                <Progress value={strength.score * 20} className="h-2 [&>div]:transition-all [&>div]:duration-300" />
+                <p className="text-xs text-muted-foreground">
+                    Password strength: <span className={`font-bold ${strength.color}`}>{strength.label}</span>
+                </p>
+                </div>
+            )}
+            </CardContent>
+            <CardFooter className="flex flex-col gap-4">
+            <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Creating Account..." : "Create Account"}
+            </Button>
+            <div className="text-center text-sm">
+                Already have an account?{" "}
+                <Link href="/login" className="underline">
+                Login
+                </Link>
+            </div>
+            </CardFooter>
+        </form>
       </Card>
     </div>
   );

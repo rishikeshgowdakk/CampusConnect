@@ -1,9 +1,11 @@
 
+
 "use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import React, { useEffect, useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -14,28 +16,30 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { getCurrentUser, updateUser, User } from "@/lib/mock-db";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const profileSchema = z.object({
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string().min(1, "Last name is required"),
+    fullName: z.string().min(1, "Full name is required"),
     usn: z.string().min(1, "USN is required"),
     year: z.coerce.number().min(1, "Year is required").max(4, "Please enter a valid year"),
     bio: z.string().optional(),
     linkedin: z.string().url("Please enter a valid LinkedIn URL").min(1, "LinkedIn profile is required"),
-    github: z.string().url("Please enter a valid GitHub URL").min(1, "GitHub profile is required"),
+    github: z.string().url("Please enter a valid GitHub URL").optional().or(z.literal('')),
     leetcode: z.string().url("Please enter a valid LeetCode URL").min(1, "LeetCode profile is required"),
 });
 
 export default function ProfilePage() {
     const { toast } = useToast();
     const router = useRouter();
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const form = useForm<z.infer<typeof profileSchema>>({
         resolver: zodResolver(profileSchema),
         defaultValues: {
-            firstName: "Your",
-            lastName: "Name",
-            bio: "Passionate developer and problem solver. Actively seeking opportunities in software engineering.",
+            fullName: "",
+            bio: "",
             usn: "",
             year: undefined,
             linkedin: "",
@@ -44,25 +48,62 @@ export default function ProfilePage() {
         },
     });
 
+    useEffect(() => {
+        const currentUser = getCurrentUser();
+        if (currentUser) {
+            setUser(currentUser);
+            form.reset({
+                fullName: currentUser.fullName,
+                usn: currentUser.usn,
+                year: currentUser.year,
+                bio: currentUser.bio || "Passionate developer and problem solver. Actively seeking opportunities in software engineering.",
+                linkedin: currentUser.linkedin,
+                github: "", // Assuming github is not collected at signup
+                leetcode: currentUser.leetcode,
+            });
+        } else {
+            // If no user, redirect to login, as they shouldn't be here.
+            router.push('/login');
+        }
+        setIsLoading(false);
+    }, [form, router]);
+
+
     function onSubmit(data: z.infer<typeof profileSchema>) {
-        // Here you would typically send the data to your backend for approval.
-        console.log("Profile data submitted for approval:", data);
-        toast({
-            title: "Profile Submitted!",
-            description: "Your profile has been sent for faculty approval. You will be notified once it's reviewed.",
-        });
-        // Redirect user to a waiting page or back to dashboard with limited access
-        router.push("/dashboard");
+        if (!user) return;
+
+        try {
+            const {fullName, ...rest} = data;
+            const nameParts = fullName.split(' ');
+            const firstName = nameParts[0] || '';
+            const lastName = nameParts.slice(1).join(' ') || '';
+
+            updateUser(user.id, {
+                ...rest,
+                fullName,
+                bio: data.bio
+            });
+
+            toast({
+                title: "Profile Updated!",
+                description: "Your profile has been successfully updated.",
+            });
+        } catch(e) {
+            toast({
+                title: "Update Failed",
+                description: "Could not update your profile. Please try again.",
+                variant: 'destructive'
+            });
+        }
     }
 
-    return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    if (isLoading || !user) {
+        return (
+            <div className="space-y-8">
                 <div>
-                    <h1 className="text-3xl font-bold font-headline">Complete Your Profile</h1>
-                    <p className="text-muted-foreground">This information is required for account approval.</p>
+                    <Skeleton className="h-10 w-1/3" />
+                    <Skeleton className="h-4 w-1/2 mt-2" />
                 </div>
-
                 <Card>
                     <CardHeader>
                         <CardTitle>Personal Information</CardTitle>
@@ -70,9 +111,40 @@ export default function ProfilePage() {
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <div className="flex items-center gap-6">
+                            <Skeleton className="h-24 w-24 rounded-full" />
+                            <div className="flex-1 space-y-2">
+                                <Skeleton className="h-4 w-24" />
+                                <Skeleton className="h-10 w-full" />
+                            </div>
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <Skeleton className="h-10 w-full" />
+                            <Skeleton className="h-10 w-full" />
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
+
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <div>
+                    <h1 className="text-3xl font-bold font-headline">Your Profile</h1>
+                    <p className="text-muted-foreground">Update your personal and professional information.</p>
+                </div>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Personal Information</CardTitle>
+                        <CardDescription>This information will be visible on your public profile.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        <div className="flex items-center gap-6">
                             <Avatar className="h-24 w-24 border">
-                                <AvatarImage src="https://picsum.photos/seed/user-avatar/100/100" data-ai-hint="person avatar" />
-                                <AvatarFallback>U</AvatarFallback>
+                                <AvatarImage src={`https://api.dicebear.com/8.x/bottts/svg?seed=${user.usn}`} data-ai-hint="person avatar" />
+                                <AvatarFallback>{user.fullName.charAt(0)}</AvatarFallback>
                             </Avatar>
                             <div className="flex-1 space-y-2">
                                 <Label htmlFor="picture">Profile Picture</Label>
@@ -83,33 +155,18 @@ export default function ProfilePage() {
                         <div className="grid md:grid-cols-2 gap-4">
                             <FormField
                                 control={form.control}
-                                name="firstName"
+                                name="fullName"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>First Name</FormLabel>
+                                        <FormLabel>Full Name</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Your" {...field} />
+                                            <Input placeholder="Your Name" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-                            <FormField
-                                control={form.control}
-                                name="lastName"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Last Name</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Name" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
-                         <div className="grid md:grid-cols-2 gap-4">
-                            <FormField
+                             <FormField
                                 control={form.control}
                                 name="usn"
                                 render={({ field }) => (
@@ -122,6 +179,9 @@ export default function ProfilePage() {
                                     </FormItem>
                                 )}
                             />
+                        </div>
+                         <div className="grid md:grid-cols-2 gap-4">
+                           
                             <FormField
                                 control={form.control}
                                 name="year"
@@ -135,12 +195,13 @@ export default function ProfilePage() {
                                     </FormItem>
                                 )}
                             />
+                             <div className="space-y-2">
+                                <Label htmlFor="email">Email</Label>
+                                <Input id="email" type="email" defaultValue={user.email} disabled />
+                                <FormDescription>You cannot change your registration email.</FormDescription>
+                            </div>
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
-                            <Input id="email" type="email" defaultValue="user@example.com" disabled />
-                            <FormDescription>You cannot change your registration email.</FormDescription>
-                        </div>
+                       
                         <FormField
                             control={form.control}
                             name="bio"
@@ -160,7 +221,7 @@ export default function ProfilePage() {
                 <Card>
                     <CardHeader>
                         <CardTitle>Social & Professional Links</CardTitle>
-                        <CardDescription>These links are mandatory for registration.</CardDescription>
+                        <CardDescription>Help others connect with you.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <FormField
@@ -206,7 +267,7 @@ export default function ProfilePage() {
                 </Card>
 
                 <div className="flex justify-end">
-                    <Button type="submit">Submit for Approval</Button>
+                    <Button type="submit">Save Changes</Button>
                 </div>
             </form>
         </Form>
