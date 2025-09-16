@@ -114,12 +114,12 @@ export default function Home() {
         <section id="hero-image" className="container my-12 fade-in-up stagger-3">
             <div className="overflow-hidden rounded-xl shadow-2xl shadow-primary/10 border border-primary/20 group">
                 <Image
-                    src="https://picsum.photos/seed/1/1200/600"
+                    src="https://picsum.photos/seed/students/1200/600"
                     alt="CampusConnect Hero Image"
                     width={1200}
                     height={600}
                     className="w-full transition-transform duration-500 ease-in-out group-hover:scale-105"
-                    data-ai-hint="university campus"
+                    data-ai-hint="college students"
                 />
             </div>
         </section>
