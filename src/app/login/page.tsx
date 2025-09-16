@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -48,11 +49,14 @@ export default function LoginPage() {
     <>
       {currentRole === 'student' && (
         <>
-            <div className="grid grid-cols-2 gap-2">
-                <Button variant="outline" disabled>
+            <div className="grid grid-cols-3 gap-2">
+                <Button variant="outline">
+                    <GoogleIcon className="h-4 w-4" />
+                </Button>
+                <Button variant="outline">
                     <GithubIcon className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" disabled>
+                <Button variant="outline">
                     <LinkedinIcon className="h-4 w-4" />
                 </Button>
             </div>

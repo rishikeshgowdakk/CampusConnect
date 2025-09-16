@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GithubIcon, LinkedinIcon, Logo } from "@/components/icons";
+import { GithubIcon, GoogleIcon, LinkedinIcon, Logo } from "@/components/icons";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
@@ -80,11 +80,14 @@ export default function SignupPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
-           <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline" disabled>
+           <div className="grid grid-cols-3 gap-2">
+            <Button variant="outline">
+                <GoogleIcon className="h-4 w-4" />
+            </Button>
+            <Button variant="outline">
                 <GithubIcon className="h-4 w-4" />
             </Button>
-            <Button variant="outline" disabled>
+            <Button variant="outline">
                 <LinkedinIcon className="h-4 w-4" />
             </Button>
           </div>
