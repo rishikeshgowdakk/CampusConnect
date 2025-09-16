@@ -46,27 +46,28 @@ export default function LoginPage() {
 
   const renderLoginForm = (currentRole: "student" | "faculty") => (
     <>
-      <div className="grid grid-cols-3 gap-2">
-        <Button variant="outline" asChild>
-            <a href="https://accounts.google.com" target="_blank" rel="noopener noreferrer"><GoogleIcon className="h-4 w-4" /></a>
-        </Button>
-        <Button variant="outline" asChild>
-            <a href="https://github.com/login" target="_blank" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
-        </Button>
-        <Button variant="outline" asChild>
-            <a href="https://www.linkedin.com/login" target="_blank" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
-        </Button>
-      </div>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
+      {currentRole === 'student' && (
+        <>
+            <div className="grid grid-cols-2 gap-2">
+                <Button variant="outline" asChild>
+                    <a href="https://github.com/login" target="_blank" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
+                </Button>
+                <Button variant="outline" asChild>
+                    <a href="https://www.linkedin.com/login" target="_blank" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
+                </Button>
+            </div>
+            <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-card px-2 text-muted-foreground">
+                    Or continue with
+                    </span>
+                </div>
+            </div>
+        </>
+      )}
       <div className="grid gap-2">
         <Label htmlFor={`${currentRole}-email`}>Email</Label>
         <Input id={`${currentRole}-email`} type="email" placeholder="example@gmail.com" />
