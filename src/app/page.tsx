@@ -101,25 +101,25 @@ export default function Home() {
               Connect, collaborate, and conquer your college journey. From placements to discussions, we&apos;ve got you covered.
             </p>
             <div className="flex gap-4 fade-in-up stagger-2">
-              <Button asChild size="lg">
+               <Button asChild size="lg" className="sparkle-button">
                 <Link href="/signup">Get Started</Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg" className="sparkle-button-outline">
                 <Link href="#features">Explore Features</Link>
               </Button>
             </div>
           </div>
         </section>
 
-        <section id="hero-image" className="container my-12 fade-in-up stagger-3">
-            <div className="overflow-hidden rounded-xl shadow-2xl shadow-primary/10 border border-primary/20 group">
+        <section id="hero-image" className="container my-12 fade-in-up stagger-3 [perspective:800px]">
+            <div className="overflow-hidden rounded-xl bg-primary/10 shadow-2xl shadow-primary/10 border border-primary/20 group transition-all duration-500 ease-in-out hover:[transform:rotateX(10deg)_rotateY(-10deg)_scale(1.05)]">
                 <Image
-                    src="https://picsum.photos/seed/students/1200/600"
-                    alt="CampusConnect Hero Image"
+                    src="https://picsum.photos/seed/college-students/1200/600"
+                    alt="A group of diverse college students smiling and walking on a university campus."
                     width={1200}
                     height={600}
-                    className="w-full transition-transform duration-500 ease-in-out group-hover:scale-105"
-                    data-ai-hint="college students"
+                    className="w-full transition-transform duration-500 ease-in-out group-hover:scale-110"
+                    data-ai-hint="college students campus"
                 />
             </div>
         </section>
@@ -134,7 +134,7 @@ export default function Home() {
                     <p className="text-muted-foreground mb-6">
                         Jumpstart your placement journey. Upload your resume and transcript to get a personalized study plan and resource suggestions in seconds.
                     </p>
-                    <Button asChild size="lg">
+                    <Button asChild size="lg" className="sparkle-button">
                         <Link href="/placements">Start Now</Link>
                     </Button>
                 </div>
@@ -150,7 +150,7 @@ export default function Home() {
           </div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, i) => (
-              <Card key={feature.title} className={`flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:shadow-lg fade-in-up stagger-${(i % 3) + 1}`}>
+              <Card key={feature.title} className={`flex flex-col items-center text-center p-6 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:shadow-lg fade-in-up stagger-${(i % 3) + 1} [perspective:800px] hover:[transform:rotateY(15deg)_scale(1.05)]`}>
                 <CardHeader className="p-0 mb-4">
                   <div className="bg-primary/10 text-primary p-4 rounded-full transition-transform duration-300 group-hover:scale-110">
                     {feature.icon}
@@ -213,3 +213,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
