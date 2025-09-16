@@ -47,14 +47,14 @@ export default function LoginPage() {
   const renderLoginForm = (currentRole: "student" | "faculty") => (
     <>
       <div className="grid grid-cols-3 gap-2">
-        <Button variant="outline">
-          <GoogleIcon className="h-4 w-4" />
+        <Button variant="outline" asChild>
+            <a href="https://accounts.google.com" target="_blank" rel="noopener noreferrer"><GoogleIcon className="h-4 w-4" /></a>
         </Button>
-        <Button variant="outline">
-          <GithubIcon className="h-4 w-4" />
+        <Button variant="outline" asChild>
+            <a href="https://github.com/login" target="_blank" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
         </Button>
-        <Button variant="outline">
-          <LinkedinIcon className="h-4 w-4" />
+        <Button variant="outline" asChild>
+            <a href="https://www.linkedin.com/login" target="_blank" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
         </Button>
       </div>
       <div className="relative">

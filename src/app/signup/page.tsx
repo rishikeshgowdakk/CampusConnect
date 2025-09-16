@@ -30,14 +30,14 @@ export default function SignupPage() {
         </CardHeader>
         <CardContent className="grid gap-4">
            <div className="grid grid-cols-3 gap-2">
-            <Button variant="outline">
-              <GoogleIcon className="h-4 w-4" />
+            <Button variant="outline" asChild>
+                <a href="https://accounts.google.com/signup" target="_blank" rel="noopener noreferrer"><GoogleIcon className="h-4 w-4" /></a>
             </Button>
-            <Button variant="outline">
-              <GithubIcon className="h-4 w-4" />
+            <Button variant="outline" asChild>
+                <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer"><GithubIcon className="h-4 w-4" /></a>
             </Button>
-            <Button variant="outline">
-              <LinkedinIcon className="h-4 w-4" />
+            <Button variant="outline" asChild>
+                <a href="https://www.linkedin.com/signup" target="_blank" rel="noopener noreferrer"><LinkedinIcon className="h-4 w-4" /></a>
             </Button>
           </div>
           <div className="relative">
