@@ -129,7 +129,7 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm"><Logo className="h-16 w-16 text-primary animate-pulse-grow" /></div>}>
       <AppLayoutContent>{children}</AppLayoutContent>
     </React.Suspense>
   )
